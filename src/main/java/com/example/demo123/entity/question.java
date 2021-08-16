@@ -7,7 +7,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Questions")
+@Table(name = "questions")
 public class question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

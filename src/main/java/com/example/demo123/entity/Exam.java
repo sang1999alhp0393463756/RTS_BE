@@ -8,13 +8,13 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "Exam")
+@Table(name = "exam")
 public class Exam extends BaseEntity{
     private String status;
     private String title;
     private String security;
     @JsonIgnore
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
     private Course course;
 

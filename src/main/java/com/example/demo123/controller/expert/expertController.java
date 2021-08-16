@@ -308,7 +308,6 @@ public ResponseEntity<?> getExamListByCourse(@PathVariable Long courseId){
                         list.get(i).setExam(exam1);
                     }
                     questionRepository.saveAll(list);
-                    return ResponseEntity.ok("success");
                 }
                 return new ResponseEntity<>(HttpStatus.OK);
         }catch (Exception e){
@@ -332,18 +331,18 @@ public ResponseEntity<?> getExamListByCourse(@PathVariable Long courseId){
                 ByteArrayInputStream bis = new ByteArrayInputStream(exam.getFile().getBytes());
                 List<question> list = uploadExcelUtils.importAssetFromInputStream(bis);
                 if (list != null && list.size() > 0) {
-                    for (question entity : list) {
-                        entity.setExam(exam1);
-                        question dto = questionRepository.save(entity);
+                    for (int i=0;i<list.size();i++) {
+                        list.get(i).setExam(exam1);
                     }
+                    questionRepository.saveAll(list);
                 }
-                return new ResponseEntity<>(HttpStatus.OK);
+                return ResponseEntity.ok("success");
             }else {
                 return ResponseEntity.ok("course chưa được active!");
             }
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -405,22 +404,20 @@ public ResponseEntity<?> getExamListByCourse(@PathVariable Long courseId){
         }
     }
 
-    @PostMapping("updateDocument/{documentId}")
-    public ResponseEntity<?> updateDocument(@PathVariable Long documentId,@ModelAttribute examRequest exam)  {
+    @PostMapping("updateDocument")
+    public ResponseEntity<?> updateDocument(@ModelAttribute documentRequest exam)  {
 
         try {
-            document document = documentRepository.getById(documentId);
-            Course course = courseRepository.getById(exam.getCourseId());
-            if( document!=null){
-                document.setCourse(course);
+            document document = documentRepository.findById(exam.getDocumentId()).orElseThrow(() -> new UsernameNotFoundException("not found"));
+            if(document !=null){
                 document.setStatus("active");
-                document.setSecurity(exam.getSecurity());
                 document.setTitle(exam.getTitle());
+                document.setSecurity(exam.getSecurity());
                 document.setDocumentName(this.amazonClient.uploadFile(exam.getFile()));
                 documentRepository.save(document);
                 return ResponseEntity.ok(document);
             }else {
-                return ResponseEntity.ok("course chưa được active!");
+                return ResponseEntity.ok(document);
             }
         }catch (Exception e){
             return ResponseEntity.ok(e);

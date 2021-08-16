@@ -7,7 +7,6 @@ public class examRequest {
     Long courseId;
     MultipartFile file;
     String security;
-
     public String getSecurity() {
         return security;
     }

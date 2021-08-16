@@ -1,0 +1,5 @@
+amazonProperties:
+  endpointUrl: https://s3.us-east-2.amazonaws.com
+  accessKey: AKIAU4PBUXSOTVOGQXYI
+  secretKey: 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
+  bucketName: fptstorage

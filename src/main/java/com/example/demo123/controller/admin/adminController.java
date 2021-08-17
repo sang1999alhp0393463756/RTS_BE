@@ -1,6 +1,7 @@
 package com.example.demo123.controller.admin;
 
 import com.example.demo123.dto.request.PaymentRequest;
+import com.example.demo123.dto.request.activePaymentRequest;
 import com.example.demo123.dto.request.user_rolesRequest;
 import com.example.demo123.dto.response.PaymentRespon;
 import com.example.demo123.dto.response.userRespon;
@@ -169,22 +170,18 @@ public class adminController {
     //api này dùng cho chức năng sau khi đã chuyển tiền xong cho expert
     //admin nhập số tiền mà expert đã rút vào
     //gửi về cùng với id của course
-    @PutMapping("updateMoneyForCourse/{withdrawn_money}/{course_id}")
-    public ResponseEntity<?> updateMoneyForCourse(@PathVariable float withdrawn_money,@PathVariable Long course_id){
-        Course course = courseRepository.getById(course_id);
-        float tien_rut = withdrawn_money+course.getWithdrawn_money();
-        float tien_du = course.getTotal_money()-tien_rut;
-        course.setRemaining_amount(tien_du);
-        course.setWithdrawn_money(tien_rut);
-        courseRepository.save(course);
-        return ResponseEntity.ok("success");
-    }
     //update cho cái lượt request đó để chuyển từ bên lịch sử yêu cầu sang lịch sử đã thanh toán
     @PutMapping("updateStatusPayment")
-    public ResponseEntity<?> updateStatusPayment(@RequestParam(name = "id") Long id,@RequestParam(name = "status") String status){
-        payment payment1 = paymentRepository.getById(id);
-        if(payment1!=null){
-            payment1.setStatus(status);
+    public ResponseEntity<?> updateStatusPayment(@RequestBody activePaymentRequest activePaymentRequest){
+        Course course = courseRepository.getById(activePaymentRequest.getCourse_id());
+        payment payment1 = paymentRepository.getById(activePaymentRequest.getPaymentId());
+        if(payment1!=null && course!=null){
+            float tien_rut = activePaymentRequest.getWithdrawn_money()+course.getWithdrawn_money();
+            float tien_du = course.getTotal_money()-tien_rut;
+            course.setRemaining_amount(tien_du);
+            course.setWithdrawn_money(tien_rut);
+            payment1.setStatus("active");
+            courseRepository.save(course);
             paymentRepository.save(payment1);
             return ResponseEntity.ok(payment1);
         }else {

@@ -466,8 +466,8 @@ public ResponseEntity<?> getExamListByCourse(@PathVariable Long courseId){
     //chế độ pending là lịch sử yêu cầu(date lấy trường created_date)
     //chế độ active là lịch sử đã được thanh toán(date lấy trường modified_date)
     @GetMapping("getRequestPayment")
-    public ResponseEntity<?> getRequestPayment(@RequestParam(name = "status") String status){
-        List<PaymentRespon> list = paymentRepository.getAllByStatus(status);
+    public ResponseEntity<?> getRequestPayment(@RequestParam(name = "userId") Long userId,@RequestParam(name = "status") String status){
+        List<PaymentRespon> list = paymentRepository.getAllByStatusOfExpert(status,userId);
         return ResponseEntity.ok(list);
     }
 }

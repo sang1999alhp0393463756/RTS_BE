@@ -1,5 +1,7 @@
 package com.example.demo123.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.Date;
@@ -7,7 +9,9 @@ import java.util.Date;
 @Entity
 @Table(name = "payment")
 public class payment extends BaseEntity{
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Long userId;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Long courseId;
     private String code;
     private float money;

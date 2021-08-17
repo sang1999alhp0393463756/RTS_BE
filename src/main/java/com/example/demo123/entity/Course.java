@@ -15,13 +15,17 @@ public class Course extends BaseEntity {
     private String thumbnail;
     @Column(columnDefinition = "TEXT")
     private String content;
+    @Column(columnDefinition = "TEXT")
     private String sortDescription;
     private Long coreExpert;
     private float price;
     @Column(name = "rating_toltal")
     private float rating_toltal;
+    //tông tiền
     private float total_money;
+    //tiền rút
     private float withdrawn_money;
+    //tiền còn lại
     private float remaining_amount;
     private float sale;
     private String status;

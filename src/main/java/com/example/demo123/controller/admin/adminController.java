@@ -171,21 +171,27 @@ public class adminController {
     //admin nhập số tiền mà expert đã rút vào
     //gửi về cùng với id của course
     //update cho cái lượt request đó để chuyển từ bên lịch sử yêu cầu sang lịch sử đã thanh toán
-    @PutMapping("updateStatusPayment")
+    @PutMapping("/updateStatusPayment")
     public ResponseEntity<?> updateStatusPayment(@RequestBody activePaymentRequest activePaymentRequest){
         Course course = courseRepository.getById(activePaymentRequest.getCourse_id());
-        payment payment1 = paymentRepository.getById(activePaymentRequest.getPaymentId());
-        if(payment1!=null && course!=null){
+
+        if(course!=null){
+//            payment payment1 = paymentRepository.getById(activePaymentRequest.getPaymentId());
             float tien_rut = activePaymentRequest.getWithdrawn_money()+course.getWithdrawn_money();
             float tien_du = course.getTotal_money()-tien_rut;
             course.setRemaining_amount(tien_du);
             course.setWithdrawn_money(tien_rut);
-            payment1.setStatus("active");
+//            payment1.setStatus("active");
             courseRepository.save(course);
-            paymentRepository.save(payment1);
-            return ResponseEntity.ok(payment1);
+//            paymentRepository.save(payment1);
+            return ResponseEntity.ok(course);
         }else {
             return ResponseEntity.ok("fail");
         }
+    }
+    @GetMapping("/getRequestPayment")
+    public ResponseEntity<?> getRequestPayment(@RequestParam(name = "status") String status){
+        List<PaymentRespon> list = paymentRepository.getAllByStatus(status);
+        return ResponseEntity.ok(list);
     }
 }

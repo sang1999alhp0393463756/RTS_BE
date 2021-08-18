@@ -69,7 +69,6 @@ public class BlogController {
     }
 
     @GetMapping("/blogDetail")
-
     public ResponseEntity<?> getBlogById(@RequestParam(name = "id") Long id){
         Blog blog = blogRepository.findBlogByIdActive(id)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with blog"));

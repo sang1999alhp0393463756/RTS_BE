@@ -1,6 +1,7 @@
 package com.example.demo123.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class Course extends BaseEntity {
     @OneToMany(mappedBy = "course")
     private List<user_course> user_course = new ArrayList<>();
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 

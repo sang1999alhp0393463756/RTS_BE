@@ -39,12 +39,13 @@ public interface user_courseRepository extends JpaRepository<Role, Long> {
     @Modifying
     @Query(value = "SELECT c.id,(select name from rts.categories where id = c.category_id) as categoryName,title,price,(select full_name from rts.users where id = c.core_expert) as nameTeacher,total_money,withdrawn_money,remaining_amount,full_name,b.date as ngay_dang_ki,phone_number,b.status as status_register,username as email,dob FROM rts.users a inner join rts.user_course b ON  a.id = b.user_id inner join rts.courses c on b.course_id = c.id where c.id =?1",nativeQuery = true)
     List<StudentsOfCourse> getStudentsOfcourse(Long course_id);
-    String getListRegisterAdvisor = "Select user_course.date, user_course.status from users, courses, user_course \n" +
-            "WHERE courses.id = user_course.course_id and users.id = user_course.user_id;";
-    @Query(value = getListRegisterAdvisor, nativeQuery = true)
-    List<userRegisterCourse> getListRegisterAdvisor();
+
     @Transactional
     @Modifying
     @Query(value = "SELECT * FROM rts.user_course a inner join rts.courses b on a.course_id=b.id where b.id = ?1 and a.status not like \"pending\";",nativeQuery = true)
     List<Course> listStudyActiveCourse(long course_id);
+    @Transactional
+    @Modifying
+    @Query(value = "select a.full_name as fullName,a.username,a.phone_number,c.title,c.price,b.date,b.status,c.category_id,b.user_id,b.course_id from rts.users a inner join rts.user_course b on a.id = b.user_id inner join rts.courses c on b.course_id = c.id",nativeQuery = true)
+    List<userRegisterCourse> getListRegisterAdvisor();
 }

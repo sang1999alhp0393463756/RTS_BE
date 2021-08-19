@@ -43,9 +43,6 @@ public class Category extends BaseEntity{
         this.name = name;
     }
 
-    public List<Course> getCourses() {
-        return courses;
-    }
 
     public void setCourses(List<Course> course) {
         this.courses = course;

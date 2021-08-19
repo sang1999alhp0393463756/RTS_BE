@@ -1,6 +1,7 @@
 package com.example.demo123.controller.advisor;
 
 import com.example.demo123.dto.response.*;
+import com.example.demo123.entity.Category;
 import com.example.demo123.entity.Course;
 import com.example.demo123.entity.Role;
 import com.example.demo123.entity.User;
@@ -182,22 +183,20 @@ public class advisorController {
     @GetMapping("/getListRegisterCourseForAdvisor")
     public ResponseEntity<?> getListRegisterCourseForAdvisor(){
         List<AdvisorListRegister> advisorListRegisterList = new ArrayList<>();
-
-        List<User> userList = userRepository.getListRegisterAdvisor();
-        List<Course> courseList = courseRepository.getListRegisterAdvisor();
         List<userRegisterCourse> userRegisterCourses = user_courseRepository.getListRegisterAdvisor();
-        for(int i = 0; i < userList.size(); i++ ){
+        for(int i = 0; i < userRegisterCourses.size(); i++ ){
             AdvisorListRegister advisorListRegister = new AdvisorListRegister();
-            advisorListRegister.setFullName(userList.get(i).getFullName());
-            advisorListRegister.setUsername(userList.get(i).getUsername());
-            advisorListRegister.setPhoneNumber(userList.get(i).getPhoneNumber());
+            Category category = categoryRepository.findById(userRegisterCourses.get(i).getCategory_id()).orElseThrow(() -> new RuntimeException("Error: category is not found."));
+            advisorListRegister.setFullName(userRegisterCourses.get(i).getFullName());
+            advisorListRegister.setUsername(userRegisterCourses.get(i).getUsername());
+            advisorListRegister.setPhoneNumber(userRegisterCourses.get(i).getPhone_number());
             advisorListRegister.setDate(userRegisterCourses.get(i).getDate());
             advisorListRegister.setStatus(userRegisterCourses.get(i).getStatus());
-            advisorListRegister.setPrice(courseList.get(i).getPrice());
-            advisorListRegister.setTitle(courseList.get(i).getTitle());
-            advisorListRegister.setCategory(courseList.get(i).getCategory());
-            advisorListRegister.setUser_id(userList.get(i).getId());
-            advisorListRegister.setCourse_id(courseList.get(i).getId());
+            advisorListRegister.setPrice(userRegisterCourses.get(i).getPrice());
+            advisorListRegister.setTitle(userRegisterCourses.get(i).getTitle());
+            advisorListRegister.setCategory(category);
+            advisorListRegister.setUser_id(userRegisterCourses.get(i).getUser_id());
+            advisorListRegister.setCourse_id(userRegisterCourses.get(i).getCourse_id());
             advisorListRegisterList.add(advisorListRegister);
         }
         return ResponseEntity.ok(advisorListRegisterList);

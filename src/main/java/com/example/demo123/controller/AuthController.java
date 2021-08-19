@@ -12,7 +12,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo123.service.Ipml.UserDetailsImpl;
 import com.example.demo123.entity.ERole;
@@ -115,7 +114,6 @@ public class AuthController {
 
 
     @PostMapping("/signup")
-    @Transactional
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
@@ -147,7 +145,7 @@ public class AuthController {
         String randomString = sb.toString();
         user.setTokenEmail(randomString);
         user.setRoles(roles);
-
+        userRepository.save(user);
 
 
         //send mail verify
@@ -155,7 +153,6 @@ public class AuthController {
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
         try {
-            userRepository.save(user);
             helper.setTo(user.getUsername());
             String hello= "<h1 style=\"color:blue;\">Xin chào "+signUpRequest.getFullName()+"</h1>";
             String content="<p>bạn vui lòng kích hoạt email để có thể bảo vệ tài khoản của mình và trải nhiệm trọn vẹn dịch vụ của chúng tôi</p>";

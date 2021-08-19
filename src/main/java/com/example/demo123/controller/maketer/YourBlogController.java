@@ -80,7 +80,12 @@ public class YourBlogController {
         try {
             Blog blog1 = blogRepository.findBlogById(id).orElseThrow(() -> new UsernameNotFoundException("User Not Found with blog"));
             blog1.setTitle(blog.getTitle());
-            blog1.setThumbnail(this.amazonClient.uploadFile(blog.getThumbnail()));
+            if (!blog.getThumbnail().getOriginalFilename().equals("null")||!blog.getThumbnail().getOriginalFilename().equals("")){
+                blog1.setThumbnail(this.amazonClient.uploadFile(blog.getThumbnail()));
+            }else {
+                blog1.setThumbnail(blog1.getThumbnail());
+            }
+
             blog1.setContent(blog.getContent());
             blog1.setSortDescription(blog.getSortDescription());
             blogRepository.save(blog1);

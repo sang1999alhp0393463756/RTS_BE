@@ -119,7 +119,11 @@ public class expertController {
 
             courseOptional.setContent(course.getContent());
             courseOptional.setTitle(course.getTitle());
-            courseOptional.setThumbnail(this.amazonClient.uploadFile(course.getThumbnail()));
+            if (!course.getThumbnail().getOriginalFilename().equals("null") || !course.getThumbnail().getOriginalFilename().equals("")){
+                courseOptional.setThumbnail(this.amazonClient.uploadFile(course.getThumbnail()));
+            }else {
+                courseOptional.setThumbnail(courseOptional.getThumbnail());
+            }
             courseOptional.setCategory(category);
             courseOptional.setCoreExpert(course.getCoreExpert());
             courseOptional.setPrice(course.getPrice());

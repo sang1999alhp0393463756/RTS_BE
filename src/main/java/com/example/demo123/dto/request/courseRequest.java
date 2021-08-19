@@ -5,17 +5,12 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotBlank;
 
 public class courseRequest {
-    @NotBlank
+
     private String title;
-    @NotBlank
     private MultipartFile thumbnail;
-    @NotBlank
     private String content;
-    @NotBlank
     private String sortDescription;
-    @NotBlank
     private Long coreExpert;
-    @NotBlank
     private float price;
     @NotBlank
     private Long category_id;

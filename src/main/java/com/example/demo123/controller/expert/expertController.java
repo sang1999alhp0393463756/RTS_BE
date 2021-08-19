@@ -116,6 +116,7 @@ public class expertController {
         Course courseOptional = courseRepository.getById(id);
         Category category = categoryRepository.getById(course.getCategory_id());
         if(courseOptional!=null){
+
             courseOptional.setContent(course.getContent());
             courseOptional.setTitle(course.getTitle());
             courseOptional.setThumbnail(this.amazonClient.uploadFile(course.getThumbnail()));

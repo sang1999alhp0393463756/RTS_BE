@@ -73,7 +73,11 @@ public class MarketerController {
                                           @ModelAttribute sliderRequest slider) {
         Slider slider1 = sliderRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Slider Not Found with lesson"));
         slider1.setTitle(slider.getTitle());
-        slider1.setImage(this.amazonClient.uploadFile(slider.getImage()));
+        if(!slider.getImage().getOriginalFilename().equals("null")||!slider.getImage().getOriginalFilename().equals("")){
+            slider1.setImage(this.amazonClient.uploadFile(slider.getImage()));
+        }else {
+            slider1.setImage(slider1.getImage());
+        }
         slider1.setNotes(slider.getNotes());
         slider1.setLink(slider.getLink());
         slider1.setStatus(slider.getStatus());

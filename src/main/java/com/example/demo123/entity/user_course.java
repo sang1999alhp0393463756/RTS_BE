@@ -9,6 +9,7 @@ import java.io.Serializable;
 @Table(name = "user_course")
 public class user_course implements Serializable{
 
+
     private User user;
     private Course course;
     private String status;

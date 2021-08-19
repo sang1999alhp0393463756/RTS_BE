@@ -214,7 +214,7 @@ public class AuthController {
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with toke: " + token));
         user.setStatus("active");
         userRepository.save(user);
-        return "http://localhost:3001/login";
+        return "http://rts.mrlinh.online/login";
     }
 
 

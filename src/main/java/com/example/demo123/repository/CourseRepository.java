@@ -28,8 +28,7 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 
     List<Course> findCourseById(Long id);
 
-    String courseOfUser = "select a.id,a.title,a.thumbnail,a.content,a.sort_description,(select d.full_name from rts.users d where d.id = a.core_expert) as teacherName,b.status,a.price,a.rating_toltal,a.category_id,(select e.name from rts.categories e where e.id = a.category_id) as nameCategory,b.date as registerDate from rts.courses a inner join rts.user_course b on a.id = b.course_id inner join rts.users c on b.user_id = c.id where c.id = ?\n" +
-            "and b.status not in ('pending')";
+    String courseOfUser = "select a.id,a.title,a.thumbnail,a.content,a.sort_description,(select d.full_name from rts.users d where d.id = a.core_expert) as teacherName,b.status,a.price,a.rating_toltal,a.category_id,(select e.name from rts.categories e where e.id = a.category_id) as nameCategory,b.date as registerDate from rts.courses a inner join rts.user_course b on a.id = b.course_id inner join rts.users c on b.user_id = c.id where c.id = ?";
     @Query(value = courseOfUser, nativeQuery = true)
     List<courseRegistiteried> courseOfUser(long id);
 

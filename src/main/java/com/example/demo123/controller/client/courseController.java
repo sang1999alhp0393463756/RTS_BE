@@ -45,6 +45,7 @@ public class courseController {
             course.setCategoryName(list.get(i).getCategory().getName());
             course.setCreateDate(list.get(i).getCreatedDate());
             course.setStatus(list.get(i).getStatus());
+            course.setSale(list.get(i).getSale());
             coursesList.add(course);
         }
 
@@ -77,6 +78,7 @@ public class courseController {
             course.setCategoryName(courseOptional.getCategory().getName());
             course.setCreateDate(courseOptional.getCreatedDate());
             course.setStatus(courseOptional.getStatus());
+            course.setSale(courseOptional.getSale());
             return ResponseEntity.ok(course);
         }else {
             return ResponseEntity.ok("null");

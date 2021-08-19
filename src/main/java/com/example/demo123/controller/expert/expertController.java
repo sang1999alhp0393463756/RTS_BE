@@ -91,6 +91,7 @@ public class expertController {
             course.setCategoryName(list.get(i).getCategory().getName());
             course.setCreateDate(list.get(i).getCreatedDate());
             course.setStatus(list.get(i).getStatus());
+            course.setSale(list.get(i).getSale());
             coursesList.add(course);
         }
         return ResponseEntity.ok(coursesList);

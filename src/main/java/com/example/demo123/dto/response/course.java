@@ -19,7 +19,16 @@ public class course {
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", shape = JsonFormat.Shape.STRING)
     private Date createDate;
     private String status;
+    private float sale;
     private userRespon expert;
+
+    public float getSale() {
+        return sale;
+    }
+
+    public void setSale(float sale) {
+        this.sale = sale;
+    }
 
     public userRespon getExpert() {
         return expert;

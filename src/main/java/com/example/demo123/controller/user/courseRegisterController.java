@@ -90,7 +90,7 @@ public class courseRegisterController {
 
     @GetMapping("/checkRegister/{idUser}/{idCourse}")
     public ResponseEntity<?> checkRegister(@PathVariable Long idUser,@PathVariable Long idCourse){
-        List<userRegisterCourse> userRegisterCourse = user_courseRepository.checkRegister(idUser,idCourse);
+        List<userRegisterCourse> userRegisterCourse = user_courseRepository.checkRegister2(idUser,idCourse);
         return ResponseEntity.ok(userRegisterCourse);
     }
     @GetMapping("listStudentsOfCourse/{course_id}")

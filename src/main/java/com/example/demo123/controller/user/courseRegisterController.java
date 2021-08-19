@@ -1,6 +1,7 @@
 package com.example.demo123.controller.user;
 
 import com.example.demo123.dto.request.BlogThumbnail;
+import com.example.demo123.dto.request.EmailRequest;
 import com.example.demo123.dto.request.blogRequest;
 import com.example.demo123.dto.request.course_user;
 import com.example.demo123.dto.response.*;
@@ -9,7 +10,10 @@ import com.example.demo123.entity.Course;
 import com.example.demo123.entity.User;
 import com.example.demo123.repository.*;
 import com.example.demo123.service.AmazonClient;
+import com.example.demo123.service.Emailservice;
+import com.sendgrid.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -41,7 +45,7 @@ public class courseRegisterController {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private JavaMailSender sender;
+    private Emailservice emailservice;
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody course_user course_user){
         String status = "";
@@ -56,23 +60,34 @@ public class courseRegisterController {
                 status= "1";
 
                 //send mail verify
-                MimeMessage message = sender.createMimeMessage();
-                MimeMessageHelper helper = new MimeMessageHelper(message);
-
-                try {
-                    helper.setTo(user.getUsername());
-                    String hello= "<h1 style=\"color:blue;\">Xin chào "+user.getFullName()+"</h1>";
-                    String content="<d>"+hello+"<p>cảm ơn bạn đã tới với website của chúng tôi và mua khóa học <b>"+course.getTitle()+"</b> với giá <b>"+course.getPrice()+" vnđ </b>" +
+                String hello= "<h1 style=\"color:blue;\">Xin chào "+user.getFullName()+"</h1>";
+                String content="<d>"+hello+"<p>cảm ơn bạn đã tới với website của chúng tôi và mua khóa học <b>"+course.getTitle()+"</b> với giá <b>"+course.getPrice()+" vnđ </b>" +
                             "vui lòng thanh toán với chúng tôi theo <br> số tài khoản : 01234569875225 <br>ngân hàng :Vietcombank<br> cú pháp : " +
                             ""+user.getFullName()+" "+user.getPhoneNumber()+" "+user.getId()+""+course.getId()+"</p></d>";
 
-                    helper.setText(content,true);
-                    helper.setSubject("Mail From RTS_Learning_Solution");
-                } catch (MessagingException e) {
-                    e.printStackTrace();
-                    return ResponseEntity.ok("Error while sending mail ..");
-                }
-                sender.send(message);
+                String subject = "Mail From RTS_Learning_Solution";
+                EmailRequest emailRequest = new EmailRequest(user.getUsername(),subject,content);
+                Response response=emailservice.sendemail(emailRequest);
+                if(response.getStatusCode()==200||response.getStatusCode()==202)
+                    return new ResponseEntity<>("successfully", HttpStatus.OK);
+                return new ResponseEntity<>("failed to sent",HttpStatus.NOT_FOUND);
+//                MimeMessage message = sender.createMimeMessage();
+//                MimeMessageHelper helper = new MimeMessageHelper(message);
+//
+//                try {
+//                    helper.setTo(user.getUsername());
+//                    String hello= "<h1 style=\"color:blue;\">Xin chào "+user.getFullName()+"</h1>";
+//                    String content="<d>"+hello+"<p>cảm ơn bạn đã tới với website của chúng tôi và mua khóa học <b>"+course.getTitle()+"</b> với giá <b>"+course.getPrice()+" vnđ </b>" +
+//                            "vui lòng thanh toán với chúng tôi theo <br> số tài khoản : 01234569875225 <br>ngân hàng :Vietcombank<br> cú pháp : " +
+//                            ""+user.getFullName()+" "+user.getPhoneNumber()+" "+user.getId()+""+course.getId()+"</p></d>";
+//
+//                    helper.setText(content,true);
+//                    helper.setSubject("Mail From RTS_Learning_Solution");
+//                } catch (MessagingException e) {
+//                    e.printStackTrace();
+//                    return ResponseEntity.ok("Error while sending mail ..");
+//                }
+//                sender.send(message);
             }
 
         }catch (Exception e){

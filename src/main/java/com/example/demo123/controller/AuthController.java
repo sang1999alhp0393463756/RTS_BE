@@ -2,7 +2,11 @@ package com.example.demo123.controller;
 
 
 import com.example.demo123.dto.request.PasswordDTO;
+import com.example.demo123.dto.request.EmailRequest;
+import com.example.demo123.service.Emailservice;
+import com.sendgrid.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -20,7 +24,6 @@ import com.example.demo123.entity.User;
 import com.example.demo123.dto.request.LoginRequest;
 import com.example.demo123.dto.request.SignupRequest;
 import com.example.demo123.dto.response.JwtResponse;
-import com.example.demo123.dto.response.MessageResponse;
 import com.example.demo123.repository.RoleRepository;
 import com.example.demo123.repository.UserRepository;
 import com.example.demo123.security.jwt.JwtUtils;
@@ -52,6 +55,8 @@ public class AuthController {
 
     @Autowired
     private JavaMailSender sender;
+    @Autowired
+    private Emailservice emailservice;
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -147,25 +152,34 @@ public class AuthController {
         user.setRoles(roles);
         userRepository.save(user);
 
+        String hello= "<h1 style=\"color:blue;\">Xin chào "+signUpRequest.getFullName()+"</h1>";
+        String content="<p>bạn vui lòng kích hoạt email để có thể bảo vệ tài khoản của mình và trải nhiệm trọn vẹn dịch vụ của chúng tôi</p>";
+        String button = "<d>"+hello+""+content+"</br><a href=\"http://localhost:8082/api/auth/verify/?token="+user.getTokenEmail()+"\">Active Account</a></d>";
+        String subject = "Mail From RTS_Learning_Solution";
+        EmailRequest emailRequest = new EmailRequest(user.getUsername(),subject,button);
+        Response response=emailservice.sendemail(emailRequest);
+        if(response.getStatusCode()==200||response.getStatusCode()==202)
+            return new ResponseEntity<>("successfully", HttpStatus.OK);
+        return new ResponseEntity<>("failed to sent",HttpStatus.NOT_FOUND);
 
         //send mail verify
-        MimeMessage message = sender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message);
-
-        try {
-            helper.setTo(user.getUsername());
-            String hello= "<h1 style=\"color:blue;\">Xin chào "+signUpRequest.getFullName()+"</h1>";
-            String content="<p>bạn vui lòng kích hoạt email để có thể bảo vệ tài khoản của mình và trải nhiệm trọn vẹn dịch vụ của chúng tôi</p>";
-            String button = "<d>"+hello+""+content+"</br><a href=\"http://localhost:8082/api/auth/verify/?token="+user.getTokenEmail()+"\">Active Account</a></d>";
-            helper.setText(button,true);
-            helper.setSubject("Mail From RTS_Learning_Solution");
-        } catch (MessagingException e) {
-            e.printStackTrace();
-            return ResponseEntity.ok("Error while sending mail ..");
-        }
-        sender.send(message);
-
-        return ResponseEntity.ok("Register successfully!");
+//        MimeMessage message = sender.createMimeMessage();
+//        MimeMessageHelper helper = new MimeMessageHelper(message);
+//
+//        try {
+//            helper.setTo(user.getUsername());
+//            String hello= "<h1 style=\"color:blue;\">Xin chào "+signUpRequest.getFullName()+"</h1>";
+//            String content="<p>bạn vui lòng kích hoạt email để có thể bảo vệ tài khoản của mình và trải nhiệm trọn vẹn dịch vụ của chúng tôi</p>";
+//            String button = "<d>"+hello+""+content+"</br><a href=\"http://localhost:8082/api/auth/verify/?token="+user.getTokenEmail()+"\">Active Account</a></d>";
+//            helper.setText(button,true);
+//            helper.setSubject("Mail From RTS_Learning_Solution");
+//        } catch (MessagingException e) {
+//            e.printStackTrace();
+//            return ResponseEntity.ok("Error while sending mail ..");
+//        }
+//        sender.send(message);
+//
+//        return ResponseEntity.ok("Register successfully!");
     }
 
 

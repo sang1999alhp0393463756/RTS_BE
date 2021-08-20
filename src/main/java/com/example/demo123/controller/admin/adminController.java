@@ -174,7 +174,8 @@ public class adminController {
     @PutMapping("/updateStatusPayment")
     public ResponseEntity<?> updateStatusPayment(@RequestBody activePaymentRequest activePaymentRequest){
         Course course = courseRepository.findById(activePaymentRequest.getCourse_id()).orElseThrow(() -> new UsernameNotFoundException("course Not Found"));
-        if(course!=null){
+
+        if(course!=null&& course.getRemaining_amount()>=activePaymentRequest.getWithdrawn_money()){
             payment payment1 = paymentRepository.getById(activePaymentRequest.getPaymentId());
             float tien_rut = activePaymentRequest.getWithdrawn_money()+course.getWithdrawn_money();
             float tien_du = course.getTotal_money()-tien_rut;

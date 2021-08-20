@@ -4,6 +4,7 @@ import com.example.demo123.dto.request.course_user;
 import com.example.demo123.dto.response.*;
 import com.example.demo123.entity.Course;
 import com.example.demo123.entity.User;
+import com.example.demo123.entity.user_course;
 import com.example.demo123.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -84,7 +85,7 @@ public class courseRegisterController {
 
     @GetMapping("/checkRegister/{idUser}/{idCourse}")
     public ResponseEntity<?> checkRegister(@PathVariable Long idUser,@PathVariable Long idCourse){
-        List<userRegisterCourse> userRegisterCourse = user_courseRepository.checkRegister2(idUser,idCourse);
+        List<checkRegister> userRegisterCourse = user_courseRepository.checkRegister2(idUser,idCourse);
         return ResponseEntity.ok(userRegisterCourse);
     }
     @GetMapping("listStudentsOfCourse/{course_id}")

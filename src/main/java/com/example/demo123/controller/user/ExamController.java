@@ -1,10 +1,7 @@
 package com.example.demo123.controller.user;
 
 import com.example.demo123.dto.request.doExam;
-import com.example.demo123.dto.response.examRespon;
-import com.example.demo123.dto.response.objectResultDetailTest;
-import com.example.demo123.dto.response.resultTestDetail;
-import com.example.demo123.dto.response.userRegisterCourse;
+import com.example.demo123.dto.response.*;
 import com.example.demo123.entity.*;
 import com.example.demo123.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +36,7 @@ public class ExamController {
 
     @GetMapping("/getExam/{id}/{userId}/{courseId}")
     public ResponseEntity<?> getExamById(@PathVariable long id,@PathVariable Long userId,@PathVariable Long courseId) {
-        List<userRegisterCourse> list = user_courseRepository.checkRegister(userId,courseId);
+        List<checkRegister> list = user_courseRepository.checkRegister(userId,courseId);
         if(list.size()!=0){
             Optional<examRespon> exam = examRepository.findExamDetail(id);
             return ResponseEntity.ok(exam);
@@ -50,7 +47,7 @@ public class ExamController {
     }
     @GetMapping("examList/{userId}/{courseId}")
     public ResponseEntity<?> getExamListByCourse(@PathVariable Long userId,@PathVariable Long courseId){
-        List<userRegisterCourse> list = user_courseRepository.checkRegister(userId,courseId);
+        List<checkRegister> list = user_courseRepository.checkRegister(userId,courseId);
         if(list.size()!=0){
             List<examRespon> examList = examRepository.getAllByCourse(courseId);
             return ResponseEntity.ok(examList);
@@ -60,7 +57,7 @@ public class ExamController {
     }
     @GetMapping("/doExam/{idExam}/{userId}/{courseId}")
     public ResponseEntity<?> doExam(@PathVariable Integer idExam,@PathVariable Long userId,@PathVariable Long courseId){
-        List<userRegisterCourse> list = user_courseRepository.checkRegister(userId,courseId);
+        List<checkRegister> list = user_courseRepository.checkRegister(userId,courseId);
         if(list.size()!=0){
             List<question> list2 = questionRepository.getQuestionByExam(idExam);
             return ResponseEntity.ok(list2);

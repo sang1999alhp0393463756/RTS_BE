@@ -2,10 +2,12 @@ package com.example.demo123.controller.user;
 
 import com.example.demo123.dto.request.LessonRequest;
 import com.example.demo123.dto.response.LessonResponse;
+import com.example.demo123.dto.response.checkRegister;
 import com.example.demo123.dto.response.lessonOfStudent;
 import com.example.demo123.dto.response.userRegisterCourse;
 import com.example.demo123.entity.Course;
 import com.example.demo123.entity.Lesson;
+import com.example.demo123.entity.user_course;
 import com.example.demo123.repository.CourseRepository;
 import com.example.demo123.repository.LessonRepository;
 import com.example.demo123.repository.user_courseRepository;
@@ -58,7 +60,7 @@ public class LessonController {
 
     @GetMapping("/getLessonByCourseIdForStudy/{idCourse}/{idUser}")
     public ResponseEntity<?> getLessonByIdCourse(@PathVariable long idCourse,@PathVariable long idUser) {
-        List<userRegisterCourse> list = user_courseRepository.checkRegister(idUser,idCourse);
+        List<checkRegister> list = user_courseRepository.checkRegister(idUser,idCourse);
         if (list.size()==0){
             return ResponseEntity.ok("faill");
         }else {
@@ -71,7 +73,7 @@ public class LessonController {
 
     @GetMapping("/getLessonByIdForStudy/{idCourse}/{idUser}/{lessonId}")
     public ResponseEntity<?> getLessonById(@PathVariable long idCourse,@PathVariable long idUser,@PathVariable long lessonId) {
-        List<userRegisterCourse> list = user_courseRepository.checkRegister(idUser,idCourse);
+        List<checkRegister> list = user_courseRepository.checkRegister(idUser,idCourse);
         if (list.size()==0){
             return ResponseEntity.ok("faill");
         }else {
@@ -82,7 +84,7 @@ public class LessonController {
     }
     @PostMapping("/successLesson/{idCourse}/{idUser}/{idLesson}")
     public ResponseEntity<?> successLesson(@PathVariable Long idCourse,@PathVariable Long idUser,@PathVariable Long idLesson){
-        List<userRegisterCourse> list = user_courseRepository.checkRegister(idUser,idCourse);
+        List<checkRegister> list = user_courseRepository.checkRegister(idUser,idCourse);
         if (list.size()==0){
             return ResponseEntity.ok(list);
         }else {

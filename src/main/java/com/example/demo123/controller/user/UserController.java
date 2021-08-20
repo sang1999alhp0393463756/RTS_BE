@@ -1,6 +1,5 @@
 package com.example.demo123.controller.user;
 
-import com.example.demo123.dto.request.EmailRequest;
 import com.example.demo123.dto.request.updateEmail;
 import com.example.demo123.dto.request.userRequest;
 import com.example.demo123.entity.User;
@@ -8,8 +7,6 @@ import com.example.demo123.repository.QueryRepository;
 import com.example.demo123.repository.RoleRepository;
 import com.example.demo123.repository.UserRepository;
 import com.example.demo123.service.AmazonClient;
-import com.example.demo123.service.Emailservice;
-import com.sendgrid.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import javax.validation.Valid;
 import java.util.*;
 
 
@@ -38,7 +34,7 @@ public class UserController {
     @Autowired
     RoleRepository roleRepository;
     @Autowired
-    private Emailservice emailservice;
+    private JavaMailSender sender;
     private AmazonClient amazonClient;
     @Autowired
     UserController(AmazonClient amazonClient) {
@@ -99,35 +95,27 @@ public class UserController {
                     }
                     String randomString = sb.toString();
                     user1.setTokenEmail(randomString);
-                String hello= "<h1 style=\"color:blue;\">Xin chào "+user1.getFullName()+"</h1>";
-              String content="<p>bạn vui lòng kích hoạt email để có thể bảo vệ tài khoản của mình và trải nhiệm trọn vẹn dịch vụ của chúng tôi</p>";
-              String button = "<d>"+hello+""+content+"</br><a href=\"http://localhost:8082/api/auth/verify/?token=" + user1.getTokenEmail() + "\">Active Account</a></d>";
-                String subject = "Mail From RTS_Learning_Solution";
-                EmailRequest emailRequest = new EmailRequest(user1.getUsername(),subject,button);
-                Response response=emailservice.sendemail(emailRequest);
-                if(response.getStatusCode()==200||response.getStatusCode()==202)
-                    return new ResponseEntity<>("successfully", HttpStatus.OK);
-                userRepository.save(user1);
-                return new ResponseEntity<>("failed to sent",HttpStatus.NOT_FOUND);
-                    //send mail verify
-//                    MimeMessage message = sender.createMimeMessage();
-//                    MimeMessageHelper helper = new MimeMessageHelper(message);
-//
-//                    try {
-//                        helper.setTo(user1.getUsername());
-//                        String hello= "<h1 style=\"color:blue;\">Xin chào "+user1.getFullName()+"</h1>";
-//                        String content="<p>bạn vui lòng kích hoạt email để có thể bảo vệ tài khoản của mình và trải nhiệm trọn vẹn dịch vụ của chúng tôi</p>";
-//                        String button = "<d>"+hello+""+content+"</br><a href=\"http://localhost:8082/api/auth/verify/?token=" + user1.getTokenEmail() + "\">Active Account</a></d>";
-//                        helper.setText(button, true);
-//
-//                        helper.setSubject("Mail From RTS_Learning_Solution");
-//                    } catch (MessagingException e) {
-//                        e.printStackTrace();
-//                        return ResponseEntity.ok("Error while sending mail ..");
-//                    }
-//                    sender.send(message);
 
-//                return ResponseEntity.ok("success");
+                userRepository.save(user1);
+                    //send mail verify
+                    MimeMessage message = sender.createMimeMessage();
+                    MimeMessageHelper helper = new MimeMessageHelper(message);
+
+                    try {
+                        helper.setTo(user1.getUsername());
+                        String hello= "<h1 style=\"color:blue;\">Xin chào "+user1.getFullName()+"</h1>";
+                        String content="<p>bạn vui lòng kích hoạt email để có thể bảo vệ tài khoản của mình và trải nhiệm trọn vẹn dịch vụ của chúng tôi</p>";
+                        String button = "<d>"+hello+""+content+"</br><a href=\"http://localhost:8082/api/auth/verify/?token=" + user1.getTokenEmail() + "\">Active Account</a></d>";
+                        helper.setText(button, true);
+
+                        helper.setSubject("Mail From RTS_Learning_Solution");
+                    } catch (MessagingException e) {
+                        e.printStackTrace();
+                        return ResponseEntity.ok("Error while sending mail ..");
+                    }
+                    sender.send(message);
+
+                return ResponseEntity.ok("success");
             }
         }
     }

@@ -2,11 +2,7 @@ package com.example.demo123.controller;
 
 
 import com.example.demo123.dto.request.PasswordDTO;
-import com.example.demo123.dto.request.EmailRequest;
-import com.example.demo123.service.Emailservice;
-import com.sendgrid.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;

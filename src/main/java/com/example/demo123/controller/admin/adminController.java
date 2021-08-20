@@ -4,6 +4,7 @@ import com.example.demo123.dto.request.PaymentRequest;
 import com.example.demo123.dto.request.activePaymentRequest;
 import com.example.demo123.dto.request.user_rolesRequest;
 import com.example.demo123.dto.response.PaymentRespon;
+import com.example.demo123.dto.response.respon;
 import com.example.demo123.dto.response.userRespon;
 import com.example.demo123.entity.Course;
 import com.example.demo123.entity.Role;
@@ -184,9 +185,9 @@ public class adminController {
             payment1.setStatus("active");
             courseRepository.save(course);
             paymentRepository.save(payment1);
-            return ResponseEntity.ok(course);
+            return ResponseEntity.ok(new respon("true","thanh toán thành công"));
         }else {
-            return ResponseEntity.ok("fail");
+            return ResponseEntity.ok(new respon("false","thanh toán không thành công"));
         }
     }
     @GetMapping("/getRequestPayment")

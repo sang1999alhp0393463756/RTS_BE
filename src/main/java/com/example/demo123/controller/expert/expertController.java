@@ -431,11 +431,11 @@ public ResponseEntity<?> getExamListByCourse(@PathVariable Long courseId){
         }
     }
 
-    @PutMapping("pendingDocument/{id}")
-    public ResponseEntity<?> deleteDocument(@PathVariable Long id){
-        document document = documentRepository.getById(id);
+    @PutMapping("updateStatusDocument/{id}")
+    public ResponseEntity<?> deleteDocument(@PathVariable Long id,@RequestParam(name = "status") String status){
+        document document = documentRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("not found"));
         if(document!=null){
-            document.setStatus("pending");
+            document.setStatus(status);
             documentRepository.save(document);
             return ResponseEntity.ok(document);
         }else {

@@ -1,5 +1,6 @@
 package com.example.demo123.controller.client;
 import com.example.demo123.dto.request.BlogThumbnail;
+import com.example.demo123.dto.request.uploadImage;
 import com.example.demo123.dto.response.course;
 import com.example.demo123.dto.response.lessonOfStudent;
 import com.example.demo123.entity.Course;
@@ -33,8 +34,8 @@ public class courseController {
         this.amazonClient = amazonClient;
     }
     @PostMapping("/saveImageContent")
-    public ResponseEntity<?> saveThumbnailBlog(@ModelAttribute BlogThumbnail imageBlog) {
-        return ResponseEntity.ok(this.amazonClient.uploadFile(imageBlog.getImageBlog()));
+    public ResponseEntity<?> saveThumbnailBlog(@ModelAttribute uploadImage image) {
+        return ResponseEntity.ok(this.amazonClient.uploadFile(image.getFile()));
     }
     @GetMapping("/allCourse")
     public ResponseEntity<?> showAll() {

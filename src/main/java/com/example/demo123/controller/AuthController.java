@@ -97,14 +97,7 @@ public class AuthController {
             user.setPassword(newPass);
         }
         userRepository.save(user);
-//        String hello= "<h1 style=\"color:blue;\">Xin chào "+user.getFullName()+"</h1>";
-//        String button = hello+"mật khẩu của bạn là : "+randomString+"";
-//        String subject = "Mail From RTS_Learning_Solution";
-//        EmailRequest emailRequest = new EmailRequest(email,subject,button);
-//        Response response=emailservice.sendemail(emailRequest);
-//        if(response.getStatusCode()==200||response.getStatusCode()==202)
-//            return new ResponseEntity<>("successfully", HttpStatus.OK);
-//        return new ResponseEntity<>("failed to sent",HttpStatus.NOT_FOUND);
+
         MimeMessage message = sender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 

@@ -9,7 +9,7 @@ public class userRequest {
     private String fullName;
     private String phoneNumber;
     private String description;
-    private MultipartFile avatar;
+    private String  avatar;
     private String dob;
 
     public Long getId() {
@@ -44,11 +44,11 @@ public class userRequest {
         this.description = description;
     }
 
-    public MultipartFile getAvatar() {
+    public String getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(MultipartFile avatar) {
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 

@@ -1,10 +1,12 @@
 package com.example.demo123.controller.client;
+import com.example.demo123.dto.request.BlogThumbnail;
 import com.example.demo123.dto.response.course;
 import com.example.demo123.dto.response.lessonOfStudent;
 import com.example.demo123.entity.Course;
 import com.example.demo123.entity.Lesson;
 import com.example.demo123.repository.CourseRepository;
 import com.example.demo123.repository.LessonRepository;
+import com.example.demo123.service.AmazonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -25,7 +27,15 @@ public class courseController {
     CourseRepository courseRepository;
     @Autowired
     LessonRepository lessonRepository;
-
+    private AmazonClient amazonClient;
+    @Autowired
+    courseController(AmazonClient amazonClient) {
+        this.amazonClient = amazonClient;
+    }
+    @PostMapping("/saveImageContent")
+    public ResponseEntity<?> saveThumbnailBlog(@ModelAttribute BlogThumbnail imageBlog) {
+        return ResponseEntity.ok(this.amazonClient.uploadFile(imageBlog.getImageBlog()));
+    }
     @GetMapping("/allCourse")
     public ResponseEntity<?> showAll() {
         List<Course> list = new ArrayList<>();

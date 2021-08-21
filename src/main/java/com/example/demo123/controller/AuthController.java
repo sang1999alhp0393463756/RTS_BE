@@ -154,16 +154,6 @@ public class AuthController {
         user.setTokenEmail(randomString);
         user.setRoles(roles);
         userRepository.save(user);
-//        String hello= "<h1 style=\"color:blue;\">Xin chào "+signUpRequest.getFullName()+"</h1>";
-//        String content="<p>bạn vui lòng kích hoạt email để có thể bảo vệ tài khoản của mình và trải nhiệm trọn vẹn dịch vụ của chúng tôi</p>";
-//        String button = "<d>"+hello+""+content+"</br><a href=\"http://localhost:8082/api/auth/verify/?token="+user.getTokenEmail()+"\">Active Account</a></d>";
-//        String subject = "Mail From RTS_Learning_Solution";
-//        EmailRequest emailRequest = new EmailRequest(user.getUsername(),subject,button);
-//        Response response=emailservice.sendemail(emailRequest);
-//        if(response.getStatusCode()==200||response.getStatusCode()==202)
-//            return new ResponseEntity<>("successfully", HttpStatus.OK);
-//        return new ResponseEntity<>("failed to sent",HttpStatus.NOT_FOUND);
-
         //send mail verify
         MimeMessage message = sender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);

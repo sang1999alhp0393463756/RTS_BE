@@ -2,6 +2,7 @@ package com.example.demo123.controller.maketer;
 
 import com.example.demo123.dto.request.BlogThumbnail;
 import com.example.demo123.dto.request.blogRequest;
+import com.example.demo123.dto.request.updateBlogRequest;
 import com.example.demo123.dto.response.BlogRespon;
 import com.example.demo123.dto.response.userRespon;
 import com.example.demo123.entity.Blog;
@@ -81,12 +82,12 @@ public class YourBlogController {
 //        return ResponseEntity.badRequest().build();
 //    }
     @PutMapping("/updateBlog/{id}")
-    public ResponseEntity<?> updateBlog(@PathVariable Long id,@ModelAttribute blogRequest blog) {
+    public ResponseEntity<?> updateBlog(@PathVariable Long id,@ModelAttribute updateBlogRequest blog) {
         try {
             Blog blog1 = blogRepository.findBlogById(id).orElseThrow(() -> new UsernameNotFoundException("User Not Found with blog"));
             blog1.setTitle(blog.getTitle());
-            if (!blog.getThumbnail().getOriginalFilename().equals("checkThumbnail_rts.png")){
-                blog1.setThumbnail(this.amazonClient.uploadFile(blog.getThumbnail()));
+            if (!blog.getThumbnail().equals("null")&&!blog.getThumbnail().equals("")){
+                blog1.setThumbnail(blog.getThumbnail());
             }else {
                 blog1.setThumbnail(blog1.getThumbnail());
             }

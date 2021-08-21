@@ -113,15 +113,15 @@ public class expertController {
         return ResponseEntity.ok(courseRequest);
     }
     @PutMapping("/updateCourse/{id}")
-    public ResponseEntity<?> updateCourseById(@PathVariable long id, @ModelAttribute courseRequest course) {
+    public ResponseEntity<?> updateCourseById(@PathVariable long id, @ModelAttribute updateCourseRequest course) {
         Course courseOptional = courseRepository.getById(id);
         Category category = categoryRepository.getById(course.getCategory_id());
         if(courseOptional!=null){
 
             courseOptional.setContent(course.getContent());
             courseOptional.setTitle(course.getTitle());
-            if (!course.getThumbnail().getOriginalFilename().equals("checkThumbnail_rts.png")){
-                courseOptional.setThumbnail(this.amazonClient.uploadFile(course.getThumbnail()));
+            if (!course.getThumbnail().equals("null") && !!course.getThumbnail().equals("") ){
+                courseOptional.setThumbnail(course.getThumbnail());
             }else {
                 courseOptional.setThumbnail(courseOptional.getThumbnail());
             }

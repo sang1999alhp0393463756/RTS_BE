@@ -126,7 +126,7 @@ public class UserController {
         if (user1 != null && user1.getId() != user.getId()) {
             return ResponseEntity.ok("mày là thằng nào mà dám update info bố");
         } else {
-            if (!user.getAvatar().getOriginalFilename().equals("null") && !user.getAvatar().getOriginalFilename().equals("") ){
+            if (!user.getAvatar().getOriginalFilename().equals("checkThumbnail_rts.png")){
                 user1.setAvatar(this.amazonClient.uploadFile(user.getAvatar()));
             }else {
                 user1.setAvatar(user1.getAvatar());

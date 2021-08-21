@@ -120,7 +120,7 @@ public class expertController {
 
             courseOptional.setContent(course.getContent());
             courseOptional.setTitle(course.getTitle());
-            if (!course.getThumbnail().getOriginalFilename().equals("null") && !course.getThumbnail().getOriginalFilename().equals("")){
+            if (!course.getThumbnail().getOriginalFilename().equals("checkThumbnail_rts.png")){
                 courseOptional.setThumbnail(this.amazonClient.uploadFile(course.getThumbnail()));
             }else {
                 courseOptional.setThumbnail(courseOptional.getThumbnail());

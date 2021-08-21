@@ -47,12 +47,17 @@ public class YourBlogController {
                 return ResponseEntity.ok("fail");
             } else {
                 Blog blog1 = new Blog();
+                if(user.getRoles().equals("ROLE_ADMIN")){
+                    blog1.setStatus("active");
+                }else {
+                    blog1.setStatus("pending");
+                }
                 blog1.setContent(blog.getContent());
                 blog1.setThumbnail(this.amazonClient.uploadFile(blog.getThumbnail()));
                 blog1.setTitle(blog.getTitle());
                 blog1.setSortDescription(blog.getSortDescription());
                 blog1.setUser(user);
-                blog1.setStatus("pending");
+
                 blogRepository.save(blog1);
                 return ResponseEntity.ok("success");
             }

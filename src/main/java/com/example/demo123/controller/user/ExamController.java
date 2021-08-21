@@ -49,7 +49,7 @@ public class ExamController {
     public ResponseEntity<?> getExamListByCourse(@PathVariable Long userId,@PathVariable Long courseId){
         List<checkRegister> list = user_courseRepository.checkRegister(userId,courseId);
         if(list.size()!=0){
-            List<examRespon> examList = examRepository.getAllByCourse(courseId);
+            List<Exam> examList = examRepository.getAllByCourse(courseId);
             return ResponseEntity.ok(examList);
         }else {
             return ResponseEntity.ok("faill");

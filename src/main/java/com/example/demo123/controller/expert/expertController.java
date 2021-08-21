@@ -152,6 +152,7 @@ public class expertController {
             return ResponseEntity.ok("fail");
         }
     }
+
     @PutMapping("activeCourse/{id}")
     public ResponseEntity<?> activeCourse(@PathVariable long id){
         Course course = courseRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Course Not Found "));
@@ -287,7 +288,7 @@ public class expertController {
 //CRUD exam
 @GetMapping("examListOfExpert/{courseId}")
 public ResponseEntity<?> getExamListByCourse(@PathVariable Long courseId){
-        List<examRespon> examList = examRepository.getAllByCourse(courseId);
+        List<Exam> examList = examRepository.getAllByCourse(courseId);
         return ResponseEntity.ok(examList);
 }
 

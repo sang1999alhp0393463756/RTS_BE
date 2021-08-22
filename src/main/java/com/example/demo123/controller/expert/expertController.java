@@ -117,14 +117,9 @@ public class expertController {
         Course courseOptional = courseRepository.getById(id);
         Category category = categoryRepository.getById(course.getCategory_id());
         if(courseOptional!=null){
-
             courseOptional.setContent(course.getContent());
             courseOptional.setTitle(course.getTitle());
-            if (!course.getThumbnail().equals("null") && !!course.getThumbnail().equals("") ){
-                courseOptional.setThumbnail(course.getThumbnail());
-            }else {
-                courseOptional.setThumbnail(courseOptional.getThumbnail());
-            }
+            courseOptional.setThumbnail(course.getThumbnail());
             courseOptional.setCategory(category);
             courseOptional.setCoreExpert(course.getCoreExpert());
             courseOptional.setPrice(course.getPrice());

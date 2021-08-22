@@ -126,11 +126,7 @@ public class UserController {
         if (user1 != null && user1.getId() != user.getId()) {
             return ResponseEntity.ok("mày là thằng nào mà dám update info bố");
         } else {
-            if (!user.getAvatar().equals("")&&!user.getAvatar().equals("null")){
-                user1.setAvatar(user.getAvatar());
-            }else {
-                user1.setAvatar(user1.getAvatar());
-            }
+            user1.setAvatar(user.getAvatar());
             user1.setFullName(user.getFullName());
             user1.setPhoneNumber(user.getPhoneNumber());
             user1.setDescription(user.getDescription());

@@ -86,12 +86,7 @@ public class YourBlogController {
         try {
             Blog blog1 = blogRepository.findBlogById(id).orElseThrow(() -> new UsernameNotFoundException("User Not Found with blog"));
             blog1.setTitle(blog.getTitle());
-            if (!blog.getThumbnail().equals("null")&&!blog.getThumbnail().equals("")){
-                blog1.setThumbnail(blog.getThumbnail());
-            }else {
-                blog1.setThumbnail(blog1.getThumbnail());
-            }
-
+            blog1.setThumbnail(blog.getThumbnail());
             blog1.setContent(blog.getContent());
             blog1.setSortDescription(blog.getSortDescription());
             blogRepository.save(blog1);

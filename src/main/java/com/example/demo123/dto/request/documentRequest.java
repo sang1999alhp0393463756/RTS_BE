@@ -4,7 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class documentRequest {
     Long documentId;
     String title;
-    MultipartFile file;
+    String file;
     String security;
 
     public Long getDocumentId() {
@@ -24,11 +24,11 @@ public class documentRequest {
     }
 
 
-    public MultipartFile getFile() {
+    public String getFile() {
         return file;
     }
 
-    public void setFile(MultipartFile file) {
+    public void setFile(String file) {
         this.file = file;
     }
 

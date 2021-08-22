@@ -415,7 +415,7 @@ public ResponseEntity<?> getExamListByCourse(@PathVariable Long courseId){
                 document.setStatus("active");
                 document.setTitle(exam.getTitle());
                 document.setSecurity(exam.getSecurity());
-                document.setDocumentName(this.amazonClient.uploadFile(exam.getFile()));
+                document.setDocumentName(exam.getFile());
                 documentRepository.save(document);
                 return ResponseEntity.ok(document);
             }else {

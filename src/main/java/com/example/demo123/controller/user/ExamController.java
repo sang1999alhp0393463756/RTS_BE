@@ -43,7 +43,6 @@ public class ExamController {
         }else {
             return ResponseEntity.ok("faill");
         }
-
     }
     @GetMapping("examList/{userId}/{courseId}")
     public ResponseEntity<?> getExamListByCourse(@PathVariable Long userId,@PathVariable Long courseId){

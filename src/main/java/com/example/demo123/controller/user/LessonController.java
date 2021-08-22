@@ -67,8 +67,6 @@ public class LessonController {
             List<lessonOfStudent> lesson = lessonRepository.getLessonByCourseIdForStudy(idCourse);
             return ResponseEntity.ok(lesson);
         }
-
-
     }
 
     @GetMapping("/getLessonByIdForStudy/{idCourse}/{idUser}/{lessonId}")

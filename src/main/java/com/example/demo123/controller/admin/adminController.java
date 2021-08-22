@@ -68,7 +68,7 @@ public class adminController {
     @GetMapping("/showUserById/{id}")
     public ResponseEntity<?> showAllById(@PathVariable long id) {
         Optional<User> user = userRepository.findById(id);
-        if (user.get() == null || !user.get().getStatus().equals("active")) {
+        if (user.get() == null) {
             return ResponseEntity.ok("user not empty!");
         } else {
             userRespon infor = new userRespon();

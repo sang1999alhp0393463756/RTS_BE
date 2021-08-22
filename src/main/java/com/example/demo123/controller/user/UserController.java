@@ -105,7 +105,7 @@ public class UserController {
                         helper.setTo(user1.getUsername());
                         String hello= "<h1 style=\"color:blue;\">Xin chào "+user1.getFullName()+"</h1>";
                         String content="<p>bạn vui lòng kích hoạt email để có thể bảo vệ tài khoản của mình và trải nhiệm trọn vẹn dịch vụ của chúng tôi</p>";
-                        String button = "<d>"+hello+""+content+"</br><a href=\"http://localhost:8082/api/auth/verify/?token=" + user1.getTokenEmail() + "\">Active Account</a></d>";
+                        String button = "<d>"+hello+""+content+"</br><a href=\"https://rts-solution.herokuapp.com/api/auth/verify/?token=" + user1.getTokenEmail() + "\">Active Account</a></d>";
                         helper.setText(button, true);
 
                         helper.setSubject("Mail From RTS_Learning_Solution");

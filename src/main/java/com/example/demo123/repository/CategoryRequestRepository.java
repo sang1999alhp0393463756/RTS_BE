@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface CategoryRequestRepository extends JpaRepository<CategoryRequest, Long> {
 
-    String query = "select * from categories where status like 'active';";
+    String query = "select * from categories";
     @Query(value = query,nativeQuery = true)
     List<CategoryRequest> showAllCategory();
 }

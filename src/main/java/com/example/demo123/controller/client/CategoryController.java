@@ -52,4 +52,9 @@ public class CategoryController {
         categoryList = categoryRepository.showCategoryByIT();
         return categoryList;
     }
+    @GetMapping("/countCourseInCagegory/{id}")
+    public ResponseEntity<?> countCourseInCagegory(@PathVariable Long id){
+        List<Course> count = courseRepository.countCourseInCagegory(id);
+        return ResponseEntity.ok(count.size());
+    }
 }

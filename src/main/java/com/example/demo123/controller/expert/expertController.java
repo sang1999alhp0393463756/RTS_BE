@@ -390,7 +390,6 @@ public ResponseEntity<?> getExamListByCourse(@PathVariable Long courseId){
         try {
             document document = new document();
             Course course = courseRepository.getById(exam.getCourseId());
-            if(course.getStatus().equals("active")){
                 document.setCourse(course);
                 document.setStatus("active");
                 document.setTitle(exam.getTitle());
@@ -398,9 +397,6 @@ public ResponseEntity<?> getExamListByCourse(@PathVariable Long courseId){
                 document.setDocumentName(this.amazonClient.uploadFile(exam.getFile()));
                 documentRepository.save(document);
                 return ResponseEntity.ok(document);
-            }else {
-                return ResponseEntity.ok("course chưa được active!");
-            }
         }catch (Exception e){
             return ResponseEntity.ok(e);
         }

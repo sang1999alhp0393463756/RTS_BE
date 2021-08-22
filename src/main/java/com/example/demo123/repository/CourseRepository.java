@@ -48,5 +48,8 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     @Modifying
     @Query(value = "SELECT * FROM rts.user_course a inner join rts.courses b on a.course_id=b.id where b.id = ?1 and a.status not like \"pending\";",nativeQuery = true)
     List<Course> listStudyActiveCourse(long course_id);
-
+    @Transactional
+    @Modifying
+    @Query(value = "SELECT *FROM rts.courses a where a.category_id=?",nativeQuery = true)
+    List<Course> countCourseInCagegory(long course_id);
 }

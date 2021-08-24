@@ -210,7 +210,7 @@ public class AuthController {
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with toke: " + token));
         user.setStatus("active");
         userRepository.save(user);
-        return "active thành công, vui lòng quay lại trang web!!";
+        return "active success!!";
     }
 
 

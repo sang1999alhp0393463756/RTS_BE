@@ -106,14 +106,45 @@ public class courseController {
     @GetMapping("/top5")
     public ResponseEntity<?> getTop5() {
         List<Course> list = courseRepository.findTop5();
-        List<Course> top5 = new ArrayList<>();
-        if (list.size() >= 4) {
-            for (int i = 0; i < 4; i++) {
+        List<course> top5 = new ArrayList<>();
+        if (list.size() >= 5) {
+            for (int i = 0; i < 5; i++) {
 
-                top5.add(list.get(i));
+                course course = new course();
+                course.setId(list.get(i).getId());
+                course.setContent(list.get(i).getContent());
+                course.setThumbnail(list.get(i).getThumbnail());
+                course.setTitle(list.get(i).getTitle());
+                course.setSortDescription(list.get(i).getSortDescription());
+                course.setCoreExpert(list.get(i).getCoreExpert());
+                course.setPrice(list.get(i).getPrice());
+                course.setRatingToltal(list.get(i).getRatingToltal());
+                course.setCategoryId(list.get(i).getCategory().getId());
+                course.setCategoryName(list.get(i).getCategory().getName());
+                course.setCreateDate(list.get(i).getCreatedDate());
+                course.setStatus(list.get(i).getStatus());
+                course.setSale(list.get(i).getSale());
+                top5.add(course);
             }
         } else {
-            top5 = list;
+            for (int i = 0; i < list.size(); i++) {
+
+                course course = new course();
+                course.setId(list.get(i).getId());
+                course.setContent(list.get(i).getContent());
+                course.setThumbnail(list.get(i).getThumbnail());
+                course.setTitle(list.get(i).getTitle());
+                course.setSortDescription(list.get(i).getSortDescription());
+                course.setCoreExpert(list.get(i).getCoreExpert());
+                course.setPrice(list.get(i).getPrice());
+                course.setRatingToltal(list.get(i).getRatingToltal());
+                course.setCategoryId(list.get(i).getCategory().getId());
+                course.setCategoryName(list.get(i).getCategory().getName());
+                course.setCreateDate(list.get(i).getCreatedDate());
+                course.setStatus(list.get(i).getStatus());
+                course.setSale(list.get(i).getSale());
+                top5.add(course);
+            }
         }
         return ResponseEntity.ok(top5);
     }
@@ -130,6 +161,30 @@ public class courseController {
             top5 = list;
         }
         return ResponseEntity.ok(top5);
+    }
+
+    @GetMapping("/top5sale")
+    public ResponseEntity<?> getTop5Sale() {
+        List<Course> list = courseRepository.top5Sale();
+        List<course> top5 = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            course course = new course();
+            course.setId(list.get(i).getId());
+            course.setContent(list.get(i).getContent());
+            course.setThumbnail(list.get(i).getThumbnail());
+            course.setTitle(list.get(i).getTitle());
+            course.setSortDescription(list.get(i).getSortDescription());
+            course.setCoreExpert(list.get(i).getCoreExpert());
+            course.setPrice(list.get(i).getPrice());
+            course.setRatingToltal(list.get(i).getRatingToltal());
+            course.setCategoryId(list.get(i).getCategory().getId());
+            course.setCategoryName(list.get(i).getCategory().getName());
+            course.setCreateDate(list.get(i).getCreatedDate());
+            course.setStatus(list.get(i).getStatus());
+            course.setSale(list.get(i).getSale());
+            top5.add(course);
+        }
+        return ResponseEntity.ok(list);
     }
     @GetMapping("/getTitleLessonByCourse/{idCourse}")
     public ResponseEntity<?> getLessonByIdCourse(@PathVariable long idCourse) {

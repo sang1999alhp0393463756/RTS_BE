@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
-    String query = "SELECT *,count(user_id) as student FROM user_course a inner join courses b on a.course_id=b.id group by course_id order by student desc";
+    String query = "SELECT *,count(user_id) as student FROM user_course a inner join courses b on a.course_id=b.id where b.status like'active' group by course_id order by student desc";
     @Query(value = query, nativeQuery = true)
     List<Course> findTop5();
 
@@ -26,8 +26,9 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     @Query(value = query3, nativeQuery = true)
     List<Course> top4();
 
-    @Query(value = "SELECT * FROM rts.courses a  order by  a.sale desc limit 5;", nativeQuery = true)
+    @Query(value = "SELECT * FROM rts.courses a where a.status like 'active'  order by  a.sale desc limit 5;", nativeQuery = true)
     List<Course> top5Sale();
+
     List<Course> findCourseById(Long id);
 
     String courseOfUser = "select a.id,a.title,a.thumbnail,a.content,a.sort_description,(select d.full_name from rts.users d where d.id = a.core_expert) as teacherName,b.status,a.price,a.rating_toltal,a.category_id,(select e.name from rts.categories e where e.id = a.category_id) as nameCategory,b.date as registerDate from rts.courses a inner join rts.user_course b on a.id = b.course_id inner join rts.users c on b.user_id = c.id where c.id = ?";

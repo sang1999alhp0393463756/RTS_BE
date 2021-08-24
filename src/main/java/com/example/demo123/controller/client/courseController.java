@@ -184,7 +184,7 @@ public class courseController {
             course.setSale(list.get(i).getSale());
             top5.add(course);
         }
-        return ResponseEntity.ok(list);
+        return ResponseEntity.ok(top5);
     }
     @GetMapping("/getTitleLessonByCourse/{idCourse}")
     public ResponseEntity<?> getLessonByIdCourse(@PathVariable long idCourse) {

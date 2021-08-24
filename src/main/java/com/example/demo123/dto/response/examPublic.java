@@ -10,6 +10,7 @@ public interface examPublic {
     String getCourseName();
     String getCategoryName();
     Long getCategory_id();
+    String getDescription();
 
 
 }

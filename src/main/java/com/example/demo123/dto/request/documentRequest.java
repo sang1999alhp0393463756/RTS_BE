@@ -6,6 +6,15 @@ public class documentRequest {
     String title;
     String file;
     String security;
+    String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public Long getDocumentId() {
         return documentId;

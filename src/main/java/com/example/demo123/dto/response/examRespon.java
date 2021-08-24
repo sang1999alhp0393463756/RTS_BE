@@ -15,5 +15,6 @@ public interface examRespon {
     String getStatus();
     Long getCourse_id();
     String getTitle();
+    String getDescription();
 
 }

@@ -12,7 +12,7 @@ public class document extends BaseEntity{
     private String status;
     private String title;
     private String security;
-
+    private String description;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -22,13 +22,22 @@ public class document extends BaseEntity{
     public document() {
     }
 
-    public document(Long id, String createdBy, Date createdDate, String modifiedBy, Date modifiedDate, String status, String title, String security, Course course, String documentName) {
+    public document(Long id, String createdBy, Date createdDate, String modifiedBy, Date modifiedDate, String status, String title, String security, String description, Course course, String documentName) {
         super(id, createdBy, createdDate, modifiedBy, modifiedDate);
         this.status = status;
         this.title = title;
         this.security = security;
+        this.description = description;
         this.course = course;
         this.documentName = documentName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getSecurity() {

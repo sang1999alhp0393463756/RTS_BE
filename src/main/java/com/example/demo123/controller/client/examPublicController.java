@@ -7,6 +7,7 @@ import com.example.demo123.repository.ExamRepository;
 import com.example.demo123.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,12 +20,13 @@ public class examPublicController {
     QuestionRepository questionRepository;
     @Autowired
     ExamRepository examRepository;
+    @PreAuthorize("hasRole('USER') or hasRole('EXPERT') or hasRole('ADVISOR') or hasRole('ADMIN')")
     @GetMapping("/examPublicList")
     public ResponseEntity<?> examPublicList(){
         List<examPublic> list = examRepository.getExamByPublic();
         return  ResponseEntity.ok(list);
     }
-
+    @PreAuthorize("hasRole('USER') or hasRole('EXPERT') or hasRole('ADVISOR') or hasRole('ADMIN')")
     @GetMapping("/testExam/{idExam}")
     public ResponseEntity<?> doExam(@PathVariable Integer idExam){
             List<question> list2 = questionRepository.getQuestionByExam(idExam);

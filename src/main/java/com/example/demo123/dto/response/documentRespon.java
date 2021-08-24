@@ -11,4 +11,5 @@ public interface documentRespon {
     String getDocument_name();
     Long getCategory_id();
     String getCategory_name();
+    String getDescription();
 }

@@ -13,6 +13,7 @@ public class Exam extends BaseEntity{
     private String status;
     private String title;
     private String security;
+    private String description;
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
@@ -24,12 +25,21 @@ public class Exam extends BaseEntity{
     public Exam() {
     }
 
-    public Exam(Long id, String createdBy, Date createdDate, String modifiedBy, Date modifiedDate, String status, String title, String security, Course course) {
+    public Exam(Long id, String createdBy, Date createdDate, String modifiedBy, Date modifiedDate, String status, String title, String security, String description, Course course) {
         super(id, createdBy, createdDate, modifiedBy, modifiedDate);
         this.status = status;
         this.title = title;
         this.security = security;
+        this.description = description;
         this.course = course;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getSecurity() {

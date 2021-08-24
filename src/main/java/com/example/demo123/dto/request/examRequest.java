@@ -7,6 +7,16 @@ public class examRequest {
     Long courseId;
     MultipartFile file;
     String security;
+    String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getSecurity() {
         return security;
     }

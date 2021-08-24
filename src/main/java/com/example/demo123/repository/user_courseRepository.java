@@ -22,8 +22,8 @@ public interface user_courseRepository extends JpaRepository<Role, Long> {
     List<userRegisterCourse> getByStatus(String status, Long course);
     @Transactional
     @Modifying
-    @Query(value = "UPDATE rts.user_course SET status = 'active' WHERE user_id = ?1 and course_id = ?2",nativeQuery = true)
-    void updateStauts(Long user_id,Long course_id);
+    @Query(value = "UPDATE rts.user_course SET status = 'active' WHERE user_id = ?1 and course_id = ?2 and nguoi_duyet =?3",nativeQuery = true)
+    void updateStauts(Long user_id,Long course_id,String nguoi_duyet);
     @Transactional
     @Modifying
     @Query(value = "DELETE FROM rts.user_course WHERE user_id = ?1 and course_id = ?2",nativeQuery = true)
@@ -47,6 +47,6 @@ public interface user_courseRepository extends JpaRepository<Role, Long> {
     List<Course> listStudyActiveCourse(long course_id);
     @Transactional
     @Modifying
-    @Query(value = "select a.full_name as fullName,a.username,a.phone_number,c.title,c.price,b.date,b.status,c.category_id,b.user_id,b.course_id from rts.users a inner join rts.user_course b on a.id = b.user_id inner join rts.courses c on b.course_id = c.id",nativeQuery = true)
+    @Query(value = "select a.full_name as fullName,a.username,a.phone_number,c.title,c.price,b.date,b.status,c.category_id,b.user_id,b.course_id,b.nguoi_duyet from rts.users a inner join rts.user_course b on a.id = b.user_id inner join rts.courses c on b.course_id = c.id",nativeQuery = true)
     List<userRegisterCourse> getListRegisterAdvisor();
 }

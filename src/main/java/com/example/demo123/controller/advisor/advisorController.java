@@ -116,6 +116,7 @@ public class advisorController {
             course.setCategoryName(list.get(i).getCategory().getName());
             course.setCreateDate(list.get(i).getCreatedDate());
             course.setStatus(list.get(i).getStatus());
+            course.setSale(list.get(i).getSale());
             coursesList.add(course);
         }
         return ResponseEntity.ok(coursesList);
@@ -194,6 +195,7 @@ public class advisorController {
             advisorListRegister.setPrice(userRegisterCourses.get(i).getPrice());
             advisorListRegister.setTitle(userRegisterCourses.get(i).getTitle());
             advisorListRegister.setCategory(category);
+            advisorListRegister.setNguoi_duyet(userRegisterCourses.get(i).getNguoi_duyet());
             advisorListRegister.setUser_id(userRegisterCourses.get(i).getUser_id());
             advisorListRegister.setCourse_id(userRegisterCourses.get(i).getCourse_id());
             advisorListRegisterList.add(advisorListRegister);
@@ -201,13 +203,19 @@ public class advisorController {
         return ResponseEntity.ok(advisorListRegisterList);
     }
     @PutMapping("/updateStatus")
-    public ResponseEntity<?> updateStatus(@RequestParam(name = "user_id") Long user_id,@RequestParam(name = "course_id") Long course_id){
+    public ResponseEntity<?> updateStatus(@RequestParam(name = "user_id") Long user_id,@RequestParam(name = "course_id") Long course_id,@RequestParam(name = "nguoi_duyet") String nguoi_duyet){
 
-            user_courseRepository.updateStauts(user_id,course_id);
+            user_courseRepository.updateStauts(user_id,course_id,nguoi_duyet);
             List<Course> list = courseRepository.listStudyActiveCourse(course_id);
             Course course = courseRepository.getById(course_id);
             User user = userRepository.getById(user_id);
-            float total_amount = list.size()*course.getPrice();
+            float price =0;
+            if(course.getSale()==0){
+                price = course.getPrice();
+            }else {
+                price = (float) (course.getPrice() - course.getPrice()*course.getSale()*0.01);
+            }
+            float total_amount = list.size()*price;
             float remaining_amount = total_amount- course.getWithdrawn_money();
             course.setTotal_money(total_amount);
             course.setRemaining_amount(remaining_amount);

@@ -13,6 +13,15 @@ public class AdvisorListRegister {
     private Category category;
     private Long user_id;
     private Long course_id;
+    private String nguoi_duyet;
+
+    public String getNguoi_duyet() {
+        return nguoi_duyet;
+    }
+
+    public void setNguoi_duyet(String nguoi_duyet) {
+        this.nguoi_duyet = nguoi_duyet;
+    }
 
     public Category getCategory() {
         return category;

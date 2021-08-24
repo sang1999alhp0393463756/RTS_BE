@@ -11,4 +11,5 @@ public interface userRegisterCourse {
      Long getCategory_id();
      Long getUser_id();
      Long getCourse_id();
+     String getNguoi_duyet();
 }

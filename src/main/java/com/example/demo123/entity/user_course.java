@@ -14,6 +14,7 @@ public class user_course implements Serializable{
     private Course course;
     private String status;
     private String date;
+    private String nguoi_duyet;
     @Id
     @JsonIgnore
     @ManyToOne
@@ -25,10 +26,20 @@ public class user_course implements Serializable{
     public void setUser(User user) {
         this.user = user;
     }
+
+    public String getNguoi_duyet() {
+        return nguoi_duyet;
+    }
+
+    public void setNguoi_duyet(String nguoi_duyet) {
+        this.nguoi_duyet = nguoi_duyet;
+    }
+
     @Id
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "course_id")
+
     public Course getCourse() {
         return course;
     }

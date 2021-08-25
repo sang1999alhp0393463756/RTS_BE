@@ -130,7 +130,6 @@ public class UserController {
             user1.setFullName(user.getFullName());
             user1.setPhoneNumber(user.getPhoneNumber());
             user1.setDescription(user.getDescription());
-            user1.setDob(user.getDob());
             userRepository.save(user1);
             return ResponseEntity.ok("success");
         }

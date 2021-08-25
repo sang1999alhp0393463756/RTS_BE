@@ -12,6 +12,7 @@ public class document extends BaseEntity{
     private String status;
     private String title;
     private String security;
+    @Column(columnDefinition = "TEXT")
     private String description;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")

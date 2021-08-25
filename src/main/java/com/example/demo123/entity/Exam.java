@@ -13,6 +13,7 @@ public class Exam extends BaseEntity{
     private String status;
     private String title;
     private String security;
+    @Column(columnDefinition = "TEXT")
     private String description;
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)

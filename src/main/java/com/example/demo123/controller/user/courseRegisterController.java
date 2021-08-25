@@ -58,7 +58,7 @@ public class courseRegisterController {
                     helper.setTo(user.getUsername());
                     String hello= "<h1 style=\"color:blue;\">Xin chào "+user.getFullName()+"</h1>";
                     String content="<d>"+hello+"<p>cảm ơn bạn đã tới với website của chúng tôi và mua khóa học <b>"+course.getTitle()+"</b> với giá <b>"+course.getPrice()+" vnđ </b>" +
-                            "vui lòng thanh toán với chúng tôi theo <br> số tài khoản : 01234569875225 <br>ngân hàng :Vietcombank<br> cú pháp : " +
+                            "vui lòng thanh toán với chúng tôi theo <br> số tài khoản: 45210000371986 <br>ngân hàng: BIDV - Chi nhánh Hòa Lạc<br>Chủ tài khoản: Tạ Trung Hiếu<br> cú pháp : " +
                             ""+user.getFullName()+" "+user.getPhoneNumber()+" "+user.getId()+""+course.getId()+"</p></d>";
 
                     helper.setText(content,true);

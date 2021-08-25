@@ -10,7 +10,7 @@ public class userRequest {
     private String phoneNumber;
     private String description;
     private String  avatar;
-    private String dob;
+
 
     public Long getId() {
         return id;
@@ -52,11 +52,4 @@ public class userRequest {
         this.avatar = avatar;
     }
 
-    public String getDob() {
-        return dob;
-    }
-
-    public void setDob(String dob) {
-        this.dob = dob;
-    }
 }

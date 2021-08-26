@@ -188,8 +188,8 @@ public class AuthController {
     @PostMapping("/changePassword")
     public String changePass(@RequestBody @Valid PasswordDTO dto) {
         String status = null;
-        User user = userRepository.findByUsername(dto.getUsername())
-                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + dto.getUsername()));
+        User user = userRepository.findById(dto.getId())
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + dto.getId()));
         if (!encoder.matches(dto.getOldPassword(), user.getPassword())) {
             status = "Mật khẩu cũ không đúng";
         }

@@ -6,7 +6,6 @@ public class sliderRequest {
     private String title;
     private MultipartFile image;
     private String link;
-    private String notes;
     private String status;
 
     public String getTitle() {
@@ -33,13 +32,7 @@ public class sliderRequest {
         this.link = link;
     }
 
-    public String getNotes() {
-        return notes;
-    }
 
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
 
     public String getStatus() {
         return status;

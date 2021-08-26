@@ -60,7 +60,6 @@ public class MarketerController {
             Slider slider1 = sliderRepository.save(new Slider(slider.getTitle(),
                     this.amazonClient.uploadFile(slider.getImage()),
                     slider.getLink(),
-                    slider.getNotes(),
                     slider.getStatus()));
             return new ResponseEntity<>(slider1, HttpStatus.CREATED);
         } catch (Exception e) {
@@ -78,7 +77,7 @@ public class MarketerController {
         }else {
             slider1.setImage(slider1.getImage());
         }
-        slider1.setNotes(slider.getNotes());
+
         slider1.setLink(slider.getLink());
         slider1.setStatus(slider.getStatus());
         sliderRepository.save(slider1);

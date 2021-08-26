@@ -9,17 +9,16 @@ public class Slider extends BaseEntity{
     private String title;
     private String image;
     private String link;
-    private String notes;
+
     private String status;
 
     public Slider() {
     }
 
-    public Slider(String title, String image, String link, String notes, String status) {
+    public Slider(String title, String image, String link,  String status) {
         this.title = title;
         this.image = image;
         this.link = link;
-        this.notes = notes;
         this.status = status;
     }
 
@@ -45,14 +44,6 @@ public class Slider extends BaseEntity{
 
     public void setLink(String link) {
         this.link = link;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
     }
 
     public String getStatus() {

@@ -17,7 +17,7 @@ import java.util.List;
 public class documentPublicController {
     @Autowired
     DocumentRepository documentRepository;
-    @PreAuthorize("hasRole('USER') or hasRole('EXPERT') or hasRole('ADVISOR') or hasRole('ADMIN')")
+
     @GetMapping("getDocumentByCourse")
     public ResponseEntity<?> getNameDocument(){
             List<documentRespon> list2 = documentRepository.getAllBySecurity();

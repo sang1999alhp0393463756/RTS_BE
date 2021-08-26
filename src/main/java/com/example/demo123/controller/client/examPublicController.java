@@ -20,7 +20,7 @@ public class examPublicController {
     QuestionRepository questionRepository;
     @Autowired
     ExamRepository examRepository;
-    @PreAuthorize("hasRole('USER') or hasRole('EXPERT') or hasRole('ADVISOR') or hasRole('ADMIN')")
+
     @GetMapping("/examPublicList")
     public ResponseEntity<?> examPublicList(){
         List<examPublic> list = examRepository.getExamByPublic();

@@ -92,8 +92,8 @@ public class MarketerController {
     }
 
 
-    @PutMapping("/updateSlider/{id}")
-    public ResponseEntity<?> deleteSliders(@PathVariable long id,@RequestParam(name = "status") String status) {
+    @PutMapping("/updateStatusSlider/{id}")
+    public ResponseEntity<?> updateStatusSlider(@PathVariable long id,@RequestParam(name = "status") String status) {
         try {
             Slider slider = sliderRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Slider Not Found "));
             slider.setStatus(status);

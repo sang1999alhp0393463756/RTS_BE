@@ -93,7 +93,20 @@ public class MarketerController {
 
 
     @PutMapping("/deleteSliders/{id}")
-    public ResponseEntity<?> deleteSliders(@PathVariable long id) {
+    public ResponseEntity<?> deleteSliders(@PathVariable long id,@RequestParam(name = "status") String status) {
+        try {
+            Slider slider = sliderRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Slider Not Found "));
+            slider.setStatus(status);
+            sliderRepository.save(slider);
+            return ResponseEntity.ok("success");
+        } catch (Exception e) {
+            return ResponseEntity.ok(e.toString());
+        }
+    }
+
+
+    @PutMapping("/updateSlider/{id}")
+    public ResponseEntity<?> deleteSliders(@PathVariable long id,) {
         try {
             Slider slider = sliderRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Slider Not Found "));
             sliderRepository.delete(slider);
@@ -102,6 +115,7 @@ public class MarketerController {
             return ResponseEntity.ok(e.toString());
         }
     }
+
     @GetMapping("/listBlogMarketer")
     public ResponseEntity<?> getAll(){
         List<Blog> list= blogRepository.findAll();

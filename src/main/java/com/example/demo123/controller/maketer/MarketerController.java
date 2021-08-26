@@ -92,7 +92,7 @@ public class MarketerController {
     }
 
 
-    @PutMapping("/deleteSliders/{id}")
+    @PutMapping("/updateSlider/{id}")
     public ResponseEntity<?> deleteSliders(@PathVariable long id,@RequestParam(name = "status") String status) {
         try {
             Slider slider = sliderRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Slider Not Found "));
@@ -105,8 +105,8 @@ public class MarketerController {
     }
 
 
-    @PutMapping("/updateSlider/{id}")
-    public ResponseEntity<?> deleteSliders(@PathVariable long id,) {
+    @PutMapping("/deleteSliders/{id}")
+    public ResponseEntity<?> deleteSliders(@PathVariable long id) {
         try {
             Slider slider = sliderRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Slider Not Found "));
             sliderRepository.delete(slider);

@@ -76,7 +76,28 @@ public class expertController {
     @GetMapping("/allCourseExpertCreate/{id}")
     public ResponseEntity<?> showCourseExpertCreate(@PathVariable long id) {
         List<Course> list = courseRepository.courseExpertCreate(id);
-        return ResponseEntity.ok(list);
+        List<course> coursesList = new ArrayList<>();
+        for (int i=0;i<list.size();i++){
+            course course = new course();
+            course.setId(list.get(i).getId());
+            course.setContent(list.get(i).getContent());
+            course.setThumbnail(list.get(i).getThumbnail());
+            course.setTitle(list.get(i).getTitle());
+            course.setSortDescription(list.get(i).getSortDescription());
+            course.setCoreExpert(list.get(i).getCoreExpert());
+            course.setPrice(list.get(i).getPrice());
+            course.setRatingToltal(list.get(i).getRatingToltal());
+            course.setCategoryId(list.get(i).getCategory().getId());
+            course.setCategoryName(list.get(i).getCategory().getName());
+            course.setCreateDate(list.get(i).getCreatedDate());
+            course.setStatus(list.get(i).getStatus());
+            course.setCreatedBy(list.get(i).getCreatedBy());
+            course.setDate_duyet(list.get(i).getDate_duyet());
+            course.setEmail_duyet(list.get(i).getEmail_duyet());
+            course.setSale(list.get(i).getSale());
+            coursesList.add(course);
+        }
+        return ResponseEntity.ok(coursesList);
     }
     @PostMapping("/addCourse")
     public ResponseEntity<?> saveCourse(@ModelAttribute courseRequest courseRequest) {

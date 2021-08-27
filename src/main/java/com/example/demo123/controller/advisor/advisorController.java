@@ -204,7 +204,7 @@ public class advisorController {
         return ResponseEntity.ok(advisorListRegisterList);
     }
     @PutMapping("/updateStatus")
-    public ResponseEntity<?> updateStatus(updateCourseUser updateCourseUser){
+    public ResponseEntity<?> updateStatus(@RequestBody updateCourseUser updateCourseUser){
 
 
         List<checkRegister> user_courses = user_courseRepository.listRegister(updateCourseUser.getCourseID());

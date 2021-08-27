@@ -145,12 +145,11 @@ public class advisorController {
         }
         return ResponseEntity.ok(userResponsList);
     }
-    @PutMapping("activeCourse")
-    public ResponseEntity<?> activeCourse(@RequestParam(name = "userID") Long userID,@RequestParam(name = "courseID") Long courseID) {
+    @PutMapping("activeCourse/{status}")
+    public ResponseEntity<?> activeCourse(@PathVariable String status,@RequestParam(name = "userID") Long userID,@RequestParam(name = "courseID") Long courseID) {
         Course course = courseRepository.findById(courseID).orElseThrow(() -> new UsernameNotFoundException("course Not Found w"));
         User user = userRepository.findById(userID) .orElseThrow(() -> new UsernameNotFoundException("User Not Found w"));
-
-            course.setStatus("active");
+            course.setStatus(status);
             course.setDate_duyet(new Date());
             course.setEmail_duyet(user.getUsername());
             courseRepository.save(course);

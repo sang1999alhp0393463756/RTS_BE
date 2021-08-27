@@ -1,5 +1,6 @@
 package com.example.demo123.controller.maketer;
 
+import com.example.demo123.dto.request.SliderUpdateRequest;
 import com.example.demo123.dto.request.sliderRequest;
 import com.example.demo123.dto.response.*;
 import com.example.demo123.entity.*;
@@ -69,15 +70,10 @@ public class MarketerController {
 
     @PutMapping("/updateSlider/{id}")
     public ResponseEntity<?> updateLesson(@PathVariable long id,
-                                          @ModelAttribute sliderRequest slider) {
+                                          @ModelAttribute SliderUpdateRequest slider) {
         Slider slider1 = sliderRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Slider Not Found with lesson"));
         slider1.setTitle(slider.getTitle());
-        if(!slider.getImage().getOriginalFilename().equals("null")||!slider.getImage().getOriginalFilename().equals("")){
-            slider1.setImage(this.amazonClient.uploadFile(slider.getImage()));
-        }else {
-            slider1.setImage(slider1.getImage());
-        }
-
+        slider1.setImage(slider.getImage());
         slider1.setLink(slider.getLink());
         slider1.setStatus(slider.getStatus());
         sliderRepository.save(slider1);

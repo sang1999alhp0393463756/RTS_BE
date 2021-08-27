@@ -33,10 +33,10 @@ public class CategoryController {
     CategoryRequestRepository categoryRequestRepository;
 
     @GetMapping("/showAll")
-    public List<CategoryRequest> showAllCategory() {
+    public ResponseEntity<?> showAllCategory() {
         List<CategoryRequest> categoryList = new ArrayList<>();
         categoryList = categoryRequestRepository.showAllCategory();
-        return categoryList;
+        return ResponseEntity.ok(categoryList);
     }
 
     @GetMapping("/showCategory/{id}")

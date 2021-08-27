@@ -90,10 +90,10 @@ public class expertController {
             course.setCategoryId(list.get(i).getCategory().getId());
             course.setCategoryName(list.get(i).getCategory().getName());
             course.setCreateDate(list.get(i).getCreatedDate());
-            course.setModifiedDate(list.get(i).getModifiedDate());
             course.setStatus(list.get(i).getStatus());
             course.setCreatedBy(list.get(i).getCreatedBy());
-            course.setModifiedBy(list.get(i).getModifiedBy());
+            course.setDate_duyet(list.get(i).getDate_duyet());
+            course.setEmail_duyet(list.get(i).getEmail_duyet());
             course.setSale(list.get(i).getSale());
             coursesList.add(course);
         }

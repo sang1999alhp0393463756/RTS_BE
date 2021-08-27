@@ -18,28 +18,27 @@ public class course {
     private String categoryName;
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", shape = JsonFormat.Shape.STRING)
     private Date createDate;
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", shape = JsonFormat.Shape.STRING)
-    private Date modifiedDate;
-    private String modifiedBy;
     private String createdBy;
     private String status;
     private float sale;
     private userRespon expert;
+    private Date date_duyet;
+    private String email_duyet;
 
-    public Date getModifiedDate() {
-        return modifiedDate;
+    public Date getDate_duyet() {
+        return date_duyet;
     }
 
-    public void setModifiedDate(Date modifiedDate) {
-        this.modifiedDate = modifiedDate;
+    public void setDate_duyet(Date date_duyet) {
+        this.date_duyet = date_duyet;
     }
 
-    public String getModifiedBy() {
-        return modifiedBy;
+    public String getEmail_duyet() {
+        return email_duyet;
     }
 
-    public void setModifiedBy(String modifiedBy) {
-        this.modifiedBy = modifiedBy;
+    public void setEmail_duyet(String email_duyet) {
+        this.email_duyet = email_duyet;
     }
 
     public String getCreatedBy() {

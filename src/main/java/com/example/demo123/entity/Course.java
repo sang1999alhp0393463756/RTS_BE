@@ -1,5 +1,6 @@
 package com.example.demo123.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -30,6 +31,25 @@ public class Course extends BaseEntity {
     private float remaining_amount;
     private float sale;
     private String status;
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", shape = JsonFormat.Shape.STRING)
+    private Date date_duyet;
+    private String email_duyet;
+
+    public Date getDate_duyet() {
+        return date_duyet;
+    }
+
+    public void setDate_duyet(Date date_duyet) {
+        this.date_duyet = date_duyet;
+    }
+
+    public String getEmail_duyet() {
+        return email_duyet;
+    }
+
+    public void setEmail_duyet(String email_duyet) {
+        this.email_duyet = email_duyet;
+    }
 
     public float getRatingToltal() {
         return rating_toltal;
@@ -50,7 +70,7 @@ public class Course extends BaseEntity {
     public Course() {
     }
 
-    public Course(Long id, String createdBy, Date createdDate, String modifiedBy, Date modifiedDate, String title, String thumbnail, String content, String sortDescription, Long coreExpert, float price, float rating_toltal, float total_money, float withdrawn_money, float remaining_amount, String status, Category category,float sale) {
+    public Course(Long id, String createdBy, Date createdDate, String modifiedBy, Date modifiedDate, String title, String thumbnail, String content, String sortDescription, Long coreExpert, float price, float rating_toltal, float total_money, float withdrawn_money, float remaining_amount, float sale, String status, Date date_duyet, String email_duyet, Category category) {
         super(id, createdBy, createdDate, modifiedBy, modifiedDate);
         this.title = title;
         this.thumbnail = thumbnail;
@@ -62,9 +82,11 @@ public class Course extends BaseEntity {
         this.total_money = total_money;
         this.withdrawn_money = withdrawn_money;
         this.remaining_amount = remaining_amount;
-        this.status = status;
-        this.category = category;
         this.sale = sale;
+        this.status = status;
+        this.date_duyet = date_duyet;
+        this.email_duyet = email_duyet;
+        this.category = category;
     }
 
     @OneToMany(mappedBy = "course")

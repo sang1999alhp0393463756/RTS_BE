@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
@@ -144,16 +145,16 @@ public class advisorController {
         }
         return ResponseEntity.ok(userResponsList);
     }
-    @PutMapping("activeCourse/{id}")
-    public ResponseEntity<?> activeCourse(@PathVariable Long id) {
-        Course course = courseRepository.getById(id);
-        if (course.getStatus().equals("pending")) {
+    @PutMapping("activeCourse")
+    public ResponseEntity<?> activeCourse(@RequestParam(name = "userID") Long userID,@RequestParam(name = "courseID") Long courseID) {
+        Course course = courseRepository.findById(courseID).orElseThrow(() -> new UsernameNotFoundException("course Not Found w"));
+        User user = userRepository.findById(userID) .orElseThrow(() -> new UsernameNotFoundException("User Not Found w"));
+
             course.setStatus("active");
+            course.setDate_duyet(new Date());
+            course.setEmail_duyet(user.getUsername());
             courseRepository.save(course);
             return ResponseEntity.ok(course);
-        } else {
-            return ResponseEntity.ok("not found course");
-        }
     }
     @GetMapping("/getUserByStatus")
     public ResponseEntity<?> getUserByStatus(@RequestParam(name = "status") String status,@RequestParam(name = "course_id") Long course_id){

@@ -22,6 +22,7 @@ public class course {
     private String status;
     private float sale;
     private userRespon expert;
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", shape = JsonFormat.Shape.STRING)
     private Date date_duyet;
     private String email_duyet;
 

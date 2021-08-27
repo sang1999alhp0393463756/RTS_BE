@@ -10,15 +10,8 @@ public class LessonRequest {
     private String linkVideo;
     private Long courseID;
     private String status;
-    private String shortDescription;
 
-    public String getShortDescription() {
-        return shortDescription;
-    }
 
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
-    }
 
     public String getTitle() {
         return title;

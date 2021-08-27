@@ -16,7 +16,7 @@ public class Lesson extends BaseEntity{
     private String image;
     private String linkVideo;
     private String status;
-    private String shortDescription;
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "course_id")
@@ -27,14 +27,14 @@ public class Lesson extends BaseEntity{
     public Lesson() {
     }
 
-    public Lesson(Long id, String createdBy, Date createdDate, String modifiedBy, Date modifiedDate, String title, String content, String image, String linkVideo, String status, String shortDescription, Course course) {
+    public Lesson(Long id, String createdBy, Date createdDate, String modifiedBy, Date modifiedDate, String title, String content, String image, String linkVideo, String status,  Course course) {
         super(id, createdBy, createdDate, modifiedBy, modifiedDate);
         this.title = title;
         this.content = content;
         this.image = image;
         this.linkVideo = linkVideo;
         this.status = status;
-        this.shortDescription = shortDescription;
+
         this.course = course;
     }
 
@@ -86,11 +86,5 @@ public class Lesson extends BaseEntity{
         this.status = status;
     }
 
-    public String getShortDescription() {
-        return shortDescription;
-    }
 
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
-    }
 }

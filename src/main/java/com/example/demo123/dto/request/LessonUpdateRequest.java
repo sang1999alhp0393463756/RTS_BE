@@ -9,7 +9,7 @@ public class LessonUpdateRequest {
     private String linkVideo;
     private Long courseID;
     private String status;
-    private String shortDescription;
+
 
     public String getTitle() {
         return title;
@@ -59,11 +59,4 @@ public class LessonUpdateRequest {
         this.status = status;
     }
 
-    public String getShortDescription() {
-        return shortDescription;
-    }
-
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
-    }
 }

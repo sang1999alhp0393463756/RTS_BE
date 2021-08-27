@@ -215,7 +215,6 @@ public class expertController {
             lessonCustom.setModifiedBy(lesson.get(i).getModifiedBy());
             lessonCustom.setModifiedDate(lesson.get(i).getModifiedDate());
             lessonCustom.setStatus(lesson.get(i).getStatus());
-            lessonCustom.setShortDescription(lesson.get(i).getShortDescription());
             lessonList1.add(lessonCustom);
         }
         return ResponseEntity.ok(lessonList1);
@@ -235,7 +234,7 @@ public class expertController {
         lessonCustom.setModifiedBy(lesson.get().getModifiedBy());
         lessonCustom.setModifiedDate(lesson.get().getModifiedDate());
         lessonCustom.setStatus(lesson.get().getStatus());
-        lessonCustom.setShortDescription(lesson.get().getShortDescription());
+
         return ResponseEntity.ok(lessonCustom);
     }
     @PostMapping("/addLesson")
@@ -249,7 +248,6 @@ public class expertController {
             lesson.setCourse(course);
             lesson.setImage(this.amazonClient.uploadFile(lessonRequest.getImage()));
             lesson.setStatus("active");
-            lesson.setShortDescription(lessonRequest.getShortDescription());
             lessonRepository.save(lesson);
             return ResponseEntity.ok(lessonRequest);
 
@@ -265,7 +263,6 @@ public class expertController {
         lesson1.setCourse(course);
         lesson1.setLinkVideo(lesson.getLinkVideo());
         lesson1.setStatus(lesson.getStatus());
-        lesson1.setShortDescription(lesson.getShortDescription());
         lessonRepository.save(lesson1);
         return ResponseEntity.ok("success");
     }

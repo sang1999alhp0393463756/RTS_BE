@@ -15,12 +15,22 @@ public class user_course implements Serializable{
     private String status;
     private String date;
     private String nguoi_duyet;
+    private float tien_nop;
     @Id
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
+
     public User getUser() {
         return user;
+    }
+
+    public float getTien_nop() {
+        return tien_nop;
+    }
+
+    public void setTien_nop(float tien_nop) {
+        this.tien_nop = tien_nop;
     }
 
     public void setUser(User user) {
@@ -66,10 +76,12 @@ public class user_course implements Serializable{
     public user_course() {
     }
 
-    public user_course(User user, Course course,String status,String date) {
+    public user_course(User user, Course course, String status, String date, String nguoi_duyet, float tien_nop) {
         this.user = user;
         this.course = course;
         this.status = status;
         this.date = date;
+        this.nguoi_duyet = nguoi_duyet;
+        this.tien_nop = tien_nop;
     }
 }

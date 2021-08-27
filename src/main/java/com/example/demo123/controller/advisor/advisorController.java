@@ -205,7 +205,7 @@ public class advisorController {
     @PutMapping("/updateStatus")
     public ResponseEntity<?> updateStatus(@RequestParam(name = "user_id") Long user_id,@RequestParam(name = "course_id") Long course_id,@RequestParam(name = "nguoi_duyet") String nguoi_duyet){
 
-            user_courseRepository.updateStauts(user_id,course_id,nguoi_duyet);
+
             List<Course> list = courseRepository.listStudyActiveCourse(course_id);
             Course course = courseRepository.getById(course_id);
             User user = userRepository.getById(user_id);
@@ -219,6 +219,7 @@ public class advisorController {
             float remaining_amount = total_amount- course.getWithdrawn_money();
             course.setTotal_money(total_amount);
             course.setRemaining_amount(remaining_amount);
+            user_courseRepository.updateStauts(nguoi_duyet,price,user_id,course_id);
             courseRepository.save(course);
             //send mail verify
             Date date = new Date();

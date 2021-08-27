@@ -22,8 +22,8 @@ public interface user_courseRepository extends JpaRepository<Role, Long> {
     List<userRegisterCourse> getByStatus(String status, Long course);
     @Transactional
     @Modifying
-    @Query(value = "UPDATE rts.user_course SET status = 'active' WHERE user_id = ?1 and course_id = ?2 and nguoi_duyet =?3",nativeQuery = true)
-    void updateStauts(Long user_id,Long course_id,String nguoi_duyet);
+    @Query(value = "UPDATE rts.user_course SET status = 'active',nguoi_duyet =?1,tien_nop=?2 WHERE user_id = ?3 and course_id = ?4",nativeQuery = true)
+    void updateStauts(String nguoi_duyet,float tien_nop,Long user_id,Long course_id);
     @Transactional
     @Modifying
     @Query(value = "DELETE FROM rts.user_course WHERE user_id = ?1 and course_id = ?2",nativeQuery = true)
@@ -38,7 +38,7 @@ public interface user_courseRepository extends JpaRepository<Role, Long> {
     List<checkRegister> checkRegister2(Long user_id, Long course_id);
     @Transactional
     @Modifying
-    @Query(value = "SELECT c.id,(select name from rts.categories where id = c.category_id) as categoryName,title,price,(select full_name from rts.users where id = c.core_expert) as nameTeacher,total_money,withdrawn_money,remaining_amount,full_name,b.date as ngay_dang_ki,phone_number,b.status as status_register,username as email,dob,c.sale FROM rts.users a inner join rts.user_course b ON  a.id = b.user_id inner join rts.courses c on b.course_id = c.id where c.id =?1",nativeQuery = true)
+    @Query(value = "SELECT c.id,(select name from rts.categories where id = c.category_id) as categoryName,title,price,(select full_name from rts.users where id = c.core_expert) as nameTeacher,total_money,withdrawn_money,remaining_amount,full_name,b.date as ngay_dang_ki,phone_number,b.status as status_register,username as email,dob,c.sale,b.tien_nop FROM rts.users a inner join rts.user_course b ON  a.id = b.user_id inner join rts.courses c on b.course_id = c.id where c.id =?1",nativeQuery = true)
     List<StudentsOfCourse> getStudentsOfcourse(Long course_id);
 
     @Transactional

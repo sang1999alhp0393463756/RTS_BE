@@ -16,4 +16,5 @@ public interface StudentsOfCourse {
     String getEmail();
     String getDob();
     int getSale();
+    float getTien_nop();
 }

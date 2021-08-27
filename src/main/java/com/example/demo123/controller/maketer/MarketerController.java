@@ -190,8 +190,9 @@ public class MarketerController {
         List<Course> course = courseRepository.findCourseById(categoryResponse.getCourseId());
         Category category = new Category();
         category.setName(categoryResponse.getName());
+        category.setDescription(category.getDescription());
         category.setCourses(course);
-        category.setStatus("active");
+        category.setStatus("pending");
         categoryRepository.save(category);
         return ResponseEntity.ok(category);
     }
@@ -202,16 +203,17 @@ public class MarketerController {
         Category category1 = categoryRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("User Not Found with category"));
         List<Course> courses = courseRepository.findCourseById(category.getCourseId());
         category1.setName(category.getName());
+        category1.setDescription(category.getDescription());
         category1.setCourses(courses);
         categoryRepository.save(category1);
         return ResponseEntity.ok("success");
     }
 
-    @PutMapping("/deleteCategory/{id}")
-    public ResponseEntity<?> deleteCategory(@PathVariable long id) {
+    @PutMapping("/updateStatusCategory/{id}")
+    public ResponseEntity<?> deleteCategory(@PathVariable long id,@RequestParam(name = "status") String status) {
         try {
             Category category = categoryRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Category Not Found "));
-            category.setStatus("pending");
+            category.setStatus(status);
             categoryRepository.save(category);
             return ResponseEntity.ok(category);
         } catch (Exception e) {
@@ -219,16 +221,6 @@ public class MarketerController {
         }
     }
 
-    @PutMapping("activeCategory/{id}")
-    public ResponseEntity<?> activeCategory(@PathVariable long id){
-        Category category = categoryRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Category Not Found "));
-        if (category!=null){
-            category.setStatus("active");
-            categoryRepository.save(category);
-            return ResponseEntity.ok("success");
-        }else {
-            return ResponseEntity.ok("fail");
-        }
-    }
+
 
 }

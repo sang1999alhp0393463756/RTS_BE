@@ -13,6 +13,8 @@ public class Category extends BaseEntity{
     @OneToMany(mappedBy = "category")
     private List<Course> courses = new ArrayList<>();
     private String status;
+    private String description;
+
 
     public Category() {
     }
@@ -25,6 +27,14 @@ public class Category extends BaseEntity{
         this.name = name;
         this.courses = courses;
         this.status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getStatus() {

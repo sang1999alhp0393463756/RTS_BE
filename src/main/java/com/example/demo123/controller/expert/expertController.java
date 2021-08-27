@@ -127,6 +127,7 @@ public class expertController {
             courseOptional.setCoreExpert(course.getCoreExpert());
             courseOptional.setPrice(course.getPrice());
             courseOptional.setSale(course.getSale());
+            courseOptional.setSortDescription(course.getSortDescription());
             courseRepository.save(courseOptional);
             return ResponseEntity.ok("update success");
         }else {

@@ -265,7 +265,7 @@ public class expertController {
         lesson1.setCourse(course);
         lesson1.setLinkVideo(lesson.getLinkVideo());
         lesson1.setStatus(lesson.getStatus());
-        lesson.setShortDescription(lesson.getShortDescription());
+        lesson1.setShortDescription(lesson.getShortDescription());
         lessonRepository.save(lesson1);
         return ResponseEntity.ok("success");
     }

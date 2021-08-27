@@ -190,7 +190,7 @@ public class MarketerController {
         List<Course> course = courseRepository.findCourseById(categoryResponse.getCourseId());
         Category category = new Category();
         category.setName(categoryResponse.getName());
-        category.setDescription(category.getDescription());
+        category.setDescription(categoryResponse.getDescription());
         category.setCourses(course);
         category.setStatus("pending");
         categoryRepository.save(category);

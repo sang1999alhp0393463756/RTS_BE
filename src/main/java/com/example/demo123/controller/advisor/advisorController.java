@@ -1,5 +1,6 @@
 package com.example.demo123.controller.advisor;
 
+import com.example.demo123.dto.request.updateCourseUser;
 import com.example.demo123.dto.response.*;
 import com.example.demo123.entity.Category;
 import com.example.demo123.entity.Course;
@@ -203,23 +204,22 @@ public class advisorController {
         return ResponseEntity.ok(advisorListRegisterList);
     }
     @PutMapping("/updateStatus")
-    public ResponseEntity<?> updateStatus(@RequestParam(name = "user_id") Long user_id,@RequestParam(name = "course_id") Long course_id,@RequestParam(name = "nguoi_duyet") String nguoi_duyet){
+    public ResponseEntity<?> updateStatus(updateCourseUser updateCourseUser){
 
 
-            List<Course> list = courseRepository.listStudyActiveCourse(course_id);
-            Course course = courseRepository.getById(course_id);
-            User user = userRepository.getById(user_id);
-            float price =0;
-            if(course.getSale()==0){
-                price = course.getPrice();
-            }else {
-                price = (float) (course.getPrice() - course.getPrice()*course.getSale()*0.01);
+        List<checkRegister> user_courses = user_courseRepository.listRegister(updateCourseUser.getCourseID());
+            Course course = courseRepository.getById(updateCourseUser.getCourseID());
+            User user = userRepository.getById(updateCourseUser.getUserID());
+            float price =updateCourseUser.getPrice();
+
+            float total_amount = 0;
+            for (int i=0;i<user_courses.size();i++){
+                total_amount+=user_courses.get(i).getTien_nop();
             }
-            float total_amount = list.size()*price;
             float remaining_amount = total_amount- course.getWithdrawn_money();
             course.setTotal_money(total_amount);
             course.setRemaining_amount(remaining_amount);
-            user_courseRepository.updateStauts(nguoi_duyet,price,user_id,course_id);
+            user_courseRepository.updateStauts(updateCourseUser.getNguoi_duyet(),price,updateCourseUser.getUserID(),updateCourseUser.getCourseID());
             courseRepository.save(course);
             //send mail verify
             Date date = new Date();
@@ -231,7 +231,7 @@ public class advisorController {
             try {
                 helper.setTo(user.getUsername());
                 String hello= "<h1 style=\"color:blue;\">Xin chào "+user.getFullName()+"</h1>";
-                String content="<d>"+hello+"<p>cảm ơn bạn đã tới với website của chúng tôi và mua khóa học <b>"+course.getTitle()+"</b> với giá <b>"+course.getPrice()+" vnđ </b>" +
+                String content="<d>"+hello+"<p>cảm ơn bạn đã tới với website của chúng tôi và mua khóa học <b>"+course.getTitle()+"</b> với giá <b>"+updateCourseUser.getPrice()+" vnđ </b>" +
                         "<br>Bạn có thể học khóa học này từ ngày :"+date.toString()+"</p></d>";
                 helper.setText(content,true);
                 helper.setSubject("Mail From RTS_Learning_Solution");

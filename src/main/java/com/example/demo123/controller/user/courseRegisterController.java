@@ -47,7 +47,7 @@ public class courseRegisterController {
             if(user==null || user.getStatus().equals("pending")){
                 status = "tài khoản chưa đủ điều kiện để đăng kí khóa học, hãy kiểm tra tài khoản xem đã kích hoạt chưa";
             }else {
-                queryRepository.register(course_user.getUserID(),course_user.getCourseID(),date);
+                queryRepository.register(course_user.getUserID(),course_user.getCourseID(),course_user.getPrice(),date);
                 status= "1";
 
                 //send mail verify
@@ -57,7 +57,7 @@ public class courseRegisterController {
                 try {
                     helper.setTo(user.getUsername());
                     String hello= "<h1 style=\"color:blue;\">Xin chào "+user.getFullName()+"</h1>";
-                    String content="<d>"+hello+"<p>cảm ơn bạn đã tới với website của chúng tôi và mua khóa học <b>"+course.getTitle()+"</b> với giá <b>"+course.getPrice()+" vnđ </b>" +
+                    String content="<d>"+hello+"<p>cảm ơn bạn đã tới với website của chúng tôi và mua khóa học <b>"+course.getTitle()+"</b> với giá <b>"+course_user.getPrice()+" vnđ </b>" +
                             "vui lòng thanh toán với chúng tôi theo <br> số tài khoản: 45210000371986 <br>ngân hàng: BIDV - Chi nhánh Hòa Lạc<br>Chủ tài khoản: Tạ Trung Hiếu<br> cú pháp : " +
                             ""+user.getFullName()+" "+user.getPhoneNumber()+" "+user.getId()+""+course.getId()+"</p></d>";
 

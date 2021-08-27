@@ -49,4 +49,10 @@ public interface user_courseRepository extends JpaRepository<Role, Long> {
     @Modifying
     @Query(value = "select a.full_name as fullName,a.username,a.phone_number,c.title,c.price,b.date,b.status,c.category_id,b.user_id,b.course_id,b.nguoi_duyet from rts.users a inner join rts.user_course b on a.id = b.user_id inner join rts.courses c on b.course_id = c.id",nativeQuery = true)
     List<userRegisterCourse> getListRegisterAdvisor();
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "SELECT * FROM rts.user_course a  where a.course_id = ?1 and status not like \"pending\"",nativeQuery = true)
+    List<checkRegister> listRegister(Long course_id);
 }

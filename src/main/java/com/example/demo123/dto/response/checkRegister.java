@@ -5,4 +5,6 @@ public interface checkRegister {
     String getStatus();
     Long getUser_id();
     Long getCourse_id();
+    String getNguoi_duyet();
+    float getTien_nop();
 }

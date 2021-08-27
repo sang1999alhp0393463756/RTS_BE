@@ -256,12 +256,12 @@ public class expertController {
     }
     @PutMapping("/updateLesson/{id}")
     public ResponseEntity<?> updateLesson(@PathVariable long id,
-                                          @ModelAttribute LessonRequest lesson) {
+                                          @ModelAttribute LessonUpdateRequest lesson) {
         Lesson lesson1 = lessonRepository.findLessonById(id).orElseThrow(() -> new UsernameNotFoundException("User Not Found with lesson"));
         Course course = courseRepository.getById(lesson.getCourseID());
         lesson1.setTitle(lesson.getTitle());
         lesson1.setContent(lesson.getContent());
-        lesson1.setImage(this.amazonClient.uploadFile(lesson.getImage()));
+        lesson1.setImage(lesson.getImage());
         lesson1.setCourse(course);
         lesson1.setLinkVideo(lesson.getLinkVideo());
         lesson1.setStatus(lesson.getStatus());

@@ -15,4 +15,5 @@ public interface StudentsOfCourse {
     String getStatus_register();
     String getEmail();
     String getDob();
+    int getSale();
 }

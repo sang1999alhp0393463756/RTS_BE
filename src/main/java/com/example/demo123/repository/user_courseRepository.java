@@ -38,7 +38,7 @@ public interface user_courseRepository extends JpaRepository<Role, Long> {
     List<checkRegister> checkRegister2(Long user_id, Long course_id);
     @Transactional
     @Modifying
-    @Query(value = "SELECT c.id,(select name from rts.categories where id = c.category_id) as categoryName,title,price,(select full_name from rts.users where id = c.core_expert) as nameTeacher,total_money,withdrawn_money,remaining_amount,full_name,b.date as ngay_dang_ki,phone_number,b.status as status_register,username as email,dob FROM rts.users a inner join rts.user_course b ON  a.id = b.user_id inner join rts.courses c on b.course_id = c.id where c.id =?1",nativeQuery = true)
+    @Query(value = "SELECT c.id,(select name from rts.categories where id = c.category_id) as categoryName,title,price,(select full_name from rts.users where id = c.core_expert) as nameTeacher,total_money,withdrawn_money,remaining_amount,full_name,b.date as ngay_dang_ki,phone_number,b.status as status_register,username as email,dob,c.sale FROM rts.users a inner join rts.user_course b ON  a.id = b.user_id inner join rts.courses c on b.course_id = c.id where c.id =?1",nativeQuery = true)
     List<StudentsOfCourse> getStudentsOfcourse(Long course_id);
 
     @Transactional

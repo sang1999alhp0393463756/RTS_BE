@@ -184,13 +184,12 @@ public class advisorController {
     @GetMapping("/getListRegisterCourseForAdvisor")
     public ResponseEntity<?> getListRegisterCourseForAdvisor(){
         List<userRegisterCourse> userRegisterCourses = user_courseRepository.getListRegisterAdvisor();
-
         return ResponseEntity.ok(userRegisterCourses);
     }
     @PutMapping("/updateStatus")
     public ResponseEntity<?> updateStatus(@RequestBody updateCourseUser updateCourseUser){
 
-
+        user_courseRepository.updateStauts(updateCourseUser.getNguoi_duyet(),updateCourseUser.getPrice(),updateCourseUser.getUserID(),updateCourseUser.getCourseID());
         List<checkRegister> user_courses = user_courseRepository.listRegister(updateCourseUser.getCourseID());
             Course course = courseRepository.getById(updateCourseUser.getCourseID());
             User user = userRepository.getById(updateCourseUser.getUserID());
@@ -203,7 +202,7 @@ public class advisorController {
             float remaining_amount = total_amount- course.getWithdrawn_money();
             course.setTotal_money(total_amount);
             course.setRemaining_amount(remaining_amount);
-            user_courseRepository.updateStauts(updateCourseUser.getNguoi_duyet(),price,updateCourseUser.getUserID(),updateCourseUser.getCourseID());
+
             courseRepository.save(course);
             //send mail verify
             Date date = new Date();
@@ -224,6 +223,7 @@ public class advisorController {
                 return ResponseEntity.ok("Error while sending mail ..");
             }
             sender.send(message);
+
             return ResponseEntity.ok("success");
 //        }catch (Exception e){
 //            return ResponseEntity.ok(e.toString());

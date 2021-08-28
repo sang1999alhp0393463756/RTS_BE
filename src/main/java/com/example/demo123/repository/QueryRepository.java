@@ -17,7 +17,7 @@ public interface QueryRepository extends JpaRepository<Role, Long>{
     void updateRoleForUser(Integer role_id,Integer user_id);
     @Transactional
     @Modifying
-    @Query(value = "INSERT INTO user_course(user_id,course_id,status,tien_nop,date) VALUES (?1, ?2, 'pending',?3)",nativeQuery = true)
+    @Query(value = "INSERT INTO user_course(user_id,course_id,status,tien_nop,date) VALUES (?1, ?2, 'pending',?3,?4)",nativeQuery = true)
     void register(Long user_id, Long course_id,float tien_nop, Date date);
     @Transactional
     @Modifying

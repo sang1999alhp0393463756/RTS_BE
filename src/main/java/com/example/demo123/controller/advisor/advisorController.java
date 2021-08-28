@@ -183,25 +183,9 @@ public class advisorController {
 
     @GetMapping("/getListRegisterCourseForAdvisor")
     public ResponseEntity<?> getListRegisterCourseForAdvisor(){
-        List<AdvisorListRegister> advisorListRegisterList = new ArrayList<>();
         List<userRegisterCourse> userRegisterCourses = user_courseRepository.getListRegisterAdvisor();
-        for(int i = 0; i < userRegisterCourses.size(); i++ ){
-            AdvisorListRegister advisorListRegister = new AdvisorListRegister();
-            Category category = categoryRepository.findById(userRegisterCourses.get(i).getCategory_id()).orElseThrow(() -> new RuntimeException("Error: category is not found."));
-            advisorListRegister.setFullName(userRegisterCourses.get(i).getFullName());
-            advisorListRegister.setUsername(userRegisterCourses.get(i).getUsername());
-            advisorListRegister.setPhoneNumber(userRegisterCourses.get(i).getPhone_number());
-            advisorListRegister.setDate(userRegisterCourses.get(i).getDate());
-            advisorListRegister.setStatus(userRegisterCourses.get(i).getStatus());
-            advisorListRegister.setPrice(userRegisterCourses.get(i).getPrice());
-            advisorListRegister.setTitle(userRegisterCourses.get(i).getTitle());
-            advisorListRegister.setCategory(category);
-            advisorListRegister.setNguoi_duyet(userRegisterCourses.get(i).getNguoi_duyet());
-            advisorListRegister.setUser_id(userRegisterCourses.get(i).getUser_id());
-            advisorListRegister.setCourse_id(userRegisterCourses.get(i).getCourse_id());
-            advisorListRegisterList.add(advisorListRegister);
-        }
-        return ResponseEntity.ok(advisorListRegisterList);
+
+        return ResponseEntity.ok(userRegisterCourses);
     }
     @PutMapping("/updateStatus")
     public ResponseEntity<?> updateStatus(@RequestBody updateCourseUser updateCourseUser){

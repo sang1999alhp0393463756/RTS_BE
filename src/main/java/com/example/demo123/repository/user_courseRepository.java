@@ -47,7 +47,7 @@ public interface user_courseRepository extends JpaRepository<Role, Long> {
     List<Course> listStudyActiveCourse(long course_id);
     @Transactional
     @Modifying
-    @Query(value = "select a.full_name as fullName,a.username,a.phone_number,c.title,c.price,b.date,b.status,c.category_id,b.user_id,b.course_id,b.nguoi_duyet from rts.users a inner join rts.user_course b on a.id = b.user_id inner join rts.courses c on b.course_id = c.id",nativeQuery = true)
+    @Query(value = "select a.full_name as fullName,a.username,a.phone_number,c.title,c.price,b.date,b.status,c.category_id,b.user_id,b.course_id,b.nguoi_duyet,b.tien_nop from rts.users a inner join rts.user_course b on a.id = b.user_id inner join rts.courses c on b.course_id = c.id",nativeQuery = true)
     List<userRegisterCourse> getListRegisterAdvisor();
 
 

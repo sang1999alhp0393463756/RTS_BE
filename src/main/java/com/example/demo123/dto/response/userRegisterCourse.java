@@ -12,4 +12,5 @@ public interface userRegisterCourse {
      Long getUser_id();
      Long getCourse_id();
      String getNguoi_duyet();
+     float getTien_nop();
 }

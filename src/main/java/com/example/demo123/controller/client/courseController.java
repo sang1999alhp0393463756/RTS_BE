@@ -57,6 +57,9 @@ public class courseController {
             course.setCreateDate(list.get(i).getCreatedDate());
             course.setStatus(list.get(i).getStatus());
             course.setSale(list.get(i).getSale());
+            course.setEmail_duyet(list.get(i).getEmail_duyet());
+            course.setDate_duyet(list.get(i).getDate_duyet());
+            course.setEmail_duyet(list.get(i).getEmail_duyet());
             coursesList.add(course);
         }
 

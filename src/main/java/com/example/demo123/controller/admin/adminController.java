@@ -110,12 +110,12 @@ public class adminController {
 //    }
 
 
-    @PutMapping("/updateStatusUser/{id}")
-    public ResponseEntity<?> deleteCourse(@PathVariable long id,@RequestParam(name = "status") String status) {
+    @PutMapping("/deleteCourse/{id}")
+    public ResponseEntity<?> deleteCourse(@PathVariable long id) {
         Course courseOptional = courseRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Course Not Found with id: " + id));
         if (courseOptional != null) {
             try {
-                courseOptional.setStatus(status);
+                courseOptional.setStatus("pending");
                 courseRepository.save(courseOptional);
                 return ResponseEntity.ok(courseOptional);
             } catch (NullPointerException e) {
@@ -148,13 +148,13 @@ public class adminController {
         return status;
     }
 
-    @PutMapping("/deleteUser/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable long id) {
+    @PutMapping("/updateStatusUser/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable long id,@RequestParam(name = "status") String status) {
         User userOptional = userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("User Not Found with id: " + id));
         ;
         if (userOptional != null) {
             try {
-                userOptional.setStatus("pending");
+                userOptional.setStatus(status);
                 userRepository.save(userOptional);
                 return ResponseEntity.ok(userOptional);
             } catch (NullPointerException e) {

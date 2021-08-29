@@ -6,6 +6,7 @@ public interface documentRespon {
     String getCreated_by();
     String getTitle();
     String getSecurity();
+    String getStatus();
     Long getCourse_id();
     String getCourse_name();
     String getDocument_name();

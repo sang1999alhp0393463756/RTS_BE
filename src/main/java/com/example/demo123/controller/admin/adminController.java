@@ -110,12 +110,12 @@ public class adminController {
 //    }
 
 
-    @PutMapping("/deleteCourse/{id}")
-    public ResponseEntity<?> deleteCourse(@PathVariable long id) {
+    @PutMapping("/updateStatusUser/{id}")
+    public ResponseEntity<?> deleteCourse(@PathVariable long id,@RequestParam(name = "status") String status) {
         Course courseOptional = courseRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Course Not Found with id: " + id));
         if (courseOptional != null) {
             try {
-                courseOptional.setStatus("pending");
+                courseOptional.setStatus(status);
                 courseRepository.save(courseOptional);
                 return ResponseEntity.ok(courseOptional);
             } catch (NullPointerException e) {

@@ -187,7 +187,9 @@ public class adminController {
             paymentRepository.save(payment1);
             return ResponseEntity.ok(new respon("true","thanh toán thành công"));
         }else {
-            return ResponseEntity.ok(new respon("false","thanh toán không thành công"));
+            String status1 = "thanh toán không thành công, số tiền còn lại trong khóa học không đủ để thực hiện yêu cầu!";
+            String status2="số tiền còn lại trong khóa học của bạn là: "+course.getRemaining_amount();
+            return ResponseEntity.ok(new respon("false",status1+"\n"+status2));
         }
     }
     @GetMapping("/getRequestPayment")

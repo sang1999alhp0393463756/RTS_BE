@@ -6,7 +6,7 @@ import javax.validation.constraints.Size;
 
 public class PasswordDTO {
 
-	@NotBlank
+
 	private Long id;
 
 	@NotBlank(message = "Phải nhập mật khẩu cũ")

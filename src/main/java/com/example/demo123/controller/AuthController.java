@@ -78,7 +78,7 @@ public class AuthController {
     }
 
     @PostMapping("/lostUser")
-    public ResponseEntity<?> emailSend(@RequestHeader String email) {
+    public ResponseEntity<?> emailSend(@RequestParam(name = "email") String email) {
         User user = userRepository.findByUsername(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with email: " + email));
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
